@@ -141,7 +141,7 @@ export const story: Story = {
           script: [
             {
               from: 'him',
-              text: 'i cannot believe that. Tooth offered an A to anyone who could get her dog’s medicine out of the vacuum cleaner she brought to class today',
+              text: 'i cant believe Toth offered extra credit to anyone who could get her dog’s medicine out of the vacuum cleaner she brought to class today',
               delayMs: 1100,
             },
             { type: 'playerInput', mode: 'freeform', placeholder: 'type something' },
