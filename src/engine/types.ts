@@ -64,6 +64,8 @@ export type Beat =
   | { kind: 'stairwell'; intro: string; after: string[] }
   // Chapter 8: the Sonestown dish pit (with a French onion soup Easter egg).
   | { kind: 'dishes'; intro: string; after: string[] }
+  // Bonus: pack everything into the Toyota (simple no-rotation puzzle).
+  | { kind: 'carpack'; intro: string; after: string[] }
   // Chapter 9: the proposal, over a pixel-art porch at night.
   | {
       kind: 'balcony'

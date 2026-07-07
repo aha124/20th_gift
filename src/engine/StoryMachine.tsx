@@ -19,6 +19,7 @@ import StayStillGame from '../components/StayStillGame'
 import StairwellGame from '../components/StairwellGame'
 import DishesGame from '../components/DishesGame'
 import BalconyScene from '../components/BalconyScene'
+import CarPackGame from '../components/CarPackGame'
 import './StoryMachine.css'
 
 interface Save {
@@ -232,6 +233,8 @@ function BeatView({ beat, onNext }: { beat: Beat; onNext: () => void }) {
       return <StairwellGame intro={beat.intro} after={beat.after} onNext={onNext} />
     case 'dishes':
       return <DishesGame intro={beat.intro} after={beat.after} onNext={onNext} />
+    case 'carpack':
+      return <CarPackGame intro={beat.intro} after={beat.after} onNext={onNext} />
     case 'balcony':
       return (
         <BalconyScene

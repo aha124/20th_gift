@@ -135,6 +135,23 @@ export function crunch() {
   tone(90, 0, 0.3, { type: 'square', gain: 0.14, to: 50 })
 }
 
+/** A soft, short scrub swish while washing a dish. */
+export function scrubTick() {
+  noiseBurst(0, 0.06, 0.05)
+}
+
+/** A little water splash when a dish comes clean. */
+export function splash() {
+  noiseBurst(0, 0.18, 0.09)
+  tone(1200, 0.02, 0.12, { type: 'sine', gain: 0.1, to: 2000 })
+}
+
+/** A soft click when a puzzle piece snaps into place. */
+export function snap() {
+  tone(320, 0, 0.05, { type: 'square', gain: 0.09 })
+  tone(520, 0.04, 0.06, { type: 'square', gain: 0.08 })
+}
+
 /**
  * A synthesized evocation of a 56k handshake: the dial tones, the carrier
  * warble, and the wash of static that everyone born before 1995 can hear in

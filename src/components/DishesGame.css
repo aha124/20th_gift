@@ -17,6 +17,7 @@
   border-radius: 14px;
   padding: 16px;
   box-shadow: inset 0 6px 18px rgba(0, 0, 0, 0.4);
+  touch-action: none;
 }
 .dishes__rack {
   position: relative;
@@ -28,28 +29,70 @@
   place-items: center;
 }
 .dishes__dish {
-  width: 60px;
-  height: 60px;
-  font-size: 34px;
+  position: relative;
+  width: 64px;
+  height: 64px;
   display: grid;
   place-items: center;
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 10px;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: none;
   transition: transform 0.08s;
 }
-.dishes__dish:hover {
-  transform: scale(1.08);
-  background: rgba(255, 255, 255, 0.72);
+.dishes__dish.scrubbing {
+  cursor: grabbing;
+  transform: scale(1.06);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 2px rgba(120, 200, 255, 0.6);
 }
-.dishes__dish:active {
-  transform: scale(0.94);
+.dishes__emoji {
+  font-size: 34px;
+  pointer-events: none;
+}
+.dishes__suds {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  font-size: 20px;
+  animation: pulse 0.4s ease-in-out infinite;
+  pointer-events: none;
+}
+.dishes__bar {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 5px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.dishes__bar-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #8fe0a0);
+  transition: width 0.06s linear;
+}
+.dishes__hide {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid #b9860b;
+  background: #fff3d0;
+  font-size: 12px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
 }
 .dishes__dish--soup {
   background: rgba(210, 150, 60, 0.4);
   border-color: rgba(230, 180, 90, 0.8);
-  animation: pulse 1.6s ease-in-out infinite;
 }
 .dishes__empty {
   grid-column: 1 / -1;

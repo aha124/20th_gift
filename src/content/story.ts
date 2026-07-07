@@ -409,7 +409,7 @@ export const story: Story = {
         },
         {
           kind: 'dishes',
-          intro: 'Closing time at Sonestown, and the pit is stacked to the ceiling. Tap a dish to wash it. Clear the rack before you can go.',
+          intro: 'Closing time at Sonestown, and the pit is stacked to the ceiling. Hold a dish and scrub it around to get it clean. Clear the rack before you can go.',
           after: [
             'I was so glad just to be near you that I would have done the whole summer over again, and changed nothing about it.',
             'This was the runway to everything. I just did not know it yet.',
@@ -542,8 +542,16 @@ export const story: Story = {
           kind: 'narration',
           lines: [
             'And then the getaway.',
-            'We packed the little Toyota in the dark, told exactly one costume desk we would not be coming back, and drove straight through from Florida to Pennsylvania.',
-            'No plan. No sense. Two kids and a full tank.',
+            'In the dark, we told exactly one costume desk we would not be coming back, and started loading the little Toyota.',
+            'Everything the two of us owned had to fit in that car.',
+          ],
+        },
+        {
+          kind: 'carpack',
+          intro: 'Everything you own, into the back of the Toyota. Drag each thing into the trunk so it all fits — no room to spare and a long drive ahead.',
+          after: [
+            'Somehow it all fit. It always somehow fit.',
+            'We drove straight through from Florida to Pennsylvania. No plan. No sense. Two kids and a full tank.',
             'We were young and a little dumb, and it is a great story now.',
           ],
         },
