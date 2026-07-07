@@ -154,7 +154,7 @@ export const story: Story = {
             { type: 'playerInput', mode: 'freeform', placeholder: 'type something' },
             {
               from: 'him',
-              text: 'stoop later? i have exactly no money and nowhere to be',
+              text: 'want to hang out later? i have exactly no money and nowhere to be',
               delayMs: 1300,
             },
             { type: 'playerInput', mode: 'freeform', placeholder: 'type something' },
@@ -257,8 +257,8 @@ export const story: Story = {
               y: 58,
               emoji: '\u{1F3B8}',
               memory: [
-                'The guitar. I was never as good as I pretended to be.',
-                'You let me pretend anyway.',
+                'The guitar. I could actually play, and I still can.',
+                'Me always trying to impress you, playing for you any chance I got.',
               ],
             },
             {
