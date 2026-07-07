@@ -1,0 +1,521 @@
+import type { Story } from '../engine/types'
+
+// ---------------------------------------------------------------------------
+// THE WORDS LIVE HERE. Edit any line without touching a single component.
+//
+// Anything written like [FILL: ...] is a spot for Anthony to drop in a real
+// line, a real song title, or a real photo. The game runs fine with the
+// placeholders in place — replace them whenever you're ready.
+// ---------------------------------------------------------------------------
+
+export const HER_SN = 'grluxy'
+export const HIS_SN = 'star4ker21x'
+
+// Shown in the AIM buddy-info popup. Keep the quote line yours, typed from
+// memory — do not paste copyrighted lyrics. See README.
+export const HIS_PROFILE = {
+  status: 'in the black, always in the black',
+  quote: '[FILL: a Guster or GNR line you remember, typed by you]',
+}
+
+export const BOOT_LINE = 'For Ashley. Twenty years. Here is exactly how it started.'
+
+export const story: Story = {
+  chapters: [
+    // ----------------------------------------------------------------- Ch 1
+    {
+      id: 'ditch',
+      number: 1,
+      title: 'The Ditch',
+      beats: [
+        { kind: 'title', title: 'Chapter One', subtitle: 'The Ditch' },
+        {
+          kind: 'interaction',
+          variant: 'cd-swerve',
+          lines: [
+            'It is the night before you leave for a school you are not even sure you want to go to.',
+            'Staten Island might as well be the far side of the moon, and your dad is the only reason you are going at all.',
+            'You are driving home from a conversation that did not go well, and you reach down for a CD, and for one second your eyes leave the road.',
+          ],
+          after: [
+            'The van drifts, the shoulder disappears, and now you are sitting in a ditch with your heart going a hundred miles an hour.',
+            'You are fine. The van, mostly.',
+            'And you could be forgiven, right about then, for deciding this is the universe telling you to just stay home.',
+            'You go anyway. Thank God you go anyway.',
+          ],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 2
+    {
+      id: 'mentalist',
+      number: 2,
+      title: 'The Mentalist',
+      beats: [
+        { kind: 'title', title: 'Chapter Two', subtitle: 'The Mentalist' },
+        {
+          kind: 'narration',
+          lines: [
+            'You get to Wagner late, because of course you do.',
+            'Mark walks you into some all-purpose room where a man who calls himself a mentalist is halfway through convincing a row of freshmen that they are chickens.',
+            'And off to the side there is this other guy, dressed head to toe in black, because he had just come from an audition and apparently owns no other colors.',
+            'That is me.',
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: [
+            'I saw you come in. Red hair, fair skin, that look on your face like you had not decided whether to stay.',
+            'I forgot the entire rest of the room.',
+          ],
+        },
+        {
+          kind: 'dialogue',
+          prompt: 'Afterward it is you, me, Mark, and Tanya, talking like we had been doing it for years. I ask why you are so late.',
+          choices: [
+            {
+              text: 'Long story. There may have been a ditch.',
+              reply: [
+                'A ditch. Of course there was a ditch.',
+                'I decide right then that I want to hear every long story you have.',
+              ],
+            },
+            {
+              text: 'I almost did not come at all.',
+              reply: [
+                'You almost did not come at all.',
+                'I think about that more than you know. How close this all came to never happening.',
+              ],
+            },
+            {
+              text: 'Are you always dressed like that?',
+              reply: [
+                'Only when I am trying to make an impression. Or when I own nothing else.',
+                'It was the second one. It was definitely the second one.',
+              ],
+            },
+          ],
+          after: [
+            'At some point you look right at me and say, "you are definitely older than everybody else here."',
+            'I was. I had already had a whole other life at NYU and walked away from it.',
+            'You were eighteen, about to turn nineteen. I was a wise old man of twenty.',
+          ],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 3
+    {
+      id: 'buddylist',
+      number: 3,
+      title: 'Buddy List',
+      beats: [
+        { kind: 'title', title: 'Chapter Three', subtitle: 'Buddy List' },
+        {
+          kind: 'narration',
+          lines: [
+            'We were in the same building. You three or four floors up, me down on the first.',
+            'Same learning community. Same classes. Same everything, it turned out.',
+            'So mostly we talked here.',
+          ],
+        },
+        {
+          kind: 'aim',
+          buddyAway: '[FILL, e.g. "in the black, always in the black"]',
+          script: [
+            { from: 'him', text: 'you actually made it to class today. shocking', delayMs: 900 },
+            { type: 'playerInput', mode: 'freeform', placeholder: 'type something' },
+            {
+              from: 'him',
+              text: 'we have the same everything you realize. same LC, same classes, i basically cannot escape you',
+              delayMs: 1400,
+            },
+            { from: 'him', text: 'not that i am trying', delayMs: 900 },
+            { type: 'playerInput', mode: 'freeform', placeholder: 'type something' },
+            {
+              from: 'him',
+              text: 'stoop later? i have exactly no money and nowhere to be',
+              delayMs: 1300,
+            },
+            { type: 'playerInput', mode: 'freeform', placeholder: 'type something' },
+            {
+              from: 'him',
+              text: 'also. wicked. you really do not have to pay for me',
+              delayMs: 1400,
+            },
+            {
+              from: 'him',
+              text: 'you are going to pay for me though arent you',
+              delayMs: 1100,
+            },
+            { type: 'playerInput', mode: 'freeform', placeholder: 'type something' },
+            {
+              from: 'him',
+              text: 'you are the best. i will pay you back in like fifteen years',
+              delayMs: 1400,
+            },
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: [
+            'We talked more on that concrete stoop than anywhere.',
+            'No money, no plan, just the two of us and whatever was going to happen next.',
+          ],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 4
+    {
+      id: 'laundry',
+      number: 4,
+      title: 'Laundry',
+      beats: [
+        { kind: 'title', title: 'Chapter Four', subtitle: 'Laundry' },
+        {
+          kind: 'narration',
+          lines: [
+            'It was laundry. Of all the ways it could have happened, it was laundry.',
+            'A basket of it between us, quarters in your pocket, nowhere better to be.',
+            'We ended up in the car to wait out the dryer.',
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: [
+            'A Guns N’ Roses song was on. [FILL: the song title].',
+            'And the whole ordinary night went soft around the edges, and I kissed you.',
+            'Or you kissed me. I have never been completely sure, and I like it better that way.',
+          ],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 5
+    {
+      id: 'room1xx',
+      number: 5,
+      title: 'Room 1xx',
+      beats: [
+        { kind: 'title', title: 'Chapter Five', subtitle: 'Room 1xx' },
+        {
+          kind: 'pointclick',
+          intro: 'Your roommate kept vanishing, and then was gone for good, so I more or less moved in. Have a look around. Everything in here is a story.',
+          objects: [
+            {
+              id: 'beds',
+              label: 'the two beds',
+              x: 20,
+              y: 34,
+              emoji: '\u{1F6CF}\u{FE0F}',
+              memory: [
+                'You wanted the room to look exactly like it did. Exactly. You said so and went to shower.',
+                'So I put every single thing back. The furniture, the posters, your bags, all of it, precisely where it started.',
+                'You were not amused. I thought it was the funniest thing I had ever done.',
+              ],
+            },
+            {
+              id: 'tv',
+              label: 'the little TV',
+              x: 68,
+              y: 30,
+              emoji: '\u{1F4FA}',
+              memory: [
+                'Boy Meets World on the little TV, night after night.',
+                'Chinese food paid for out of a change jar we raided for quarters.',
+                'We had nothing and I would not trade a minute of it.',
+              ],
+            },
+            {
+              id: 'whitecastle',
+              label: 'a White Castle bag',
+              x: 44,
+              y: 66,
+              emoji: '\u{1F354}',
+              memory: [
+                'My mom came to visit and brought White Castle, because that is love in my family.',
+                'The whole room smelled like onions for two days. Worth it.',
+              ],
+            },
+            {
+              id: 'guitar',
+              label: 'the guitar',
+              x: 82,
+              y: 58,
+              emoji: '\u{1F3B8}',
+              memory: [
+                'The guitar. I was never as good as I pretended to be.',
+                'You let me pretend anyway.',
+              ],
+            },
+            {
+              id: 'door',
+              label: 'the door',
+              x: 10,
+              y: 64,
+              emoji: '\u{1F6AA}',
+              memory: [
+                'You got locked out once, standing in the hall, certain you were done for.',
+                'I slid a credit card down the frame and popped it in one try, like I did it for a living.',
+                'I did not do it for a living. I got very lucky. You looked at me like a magician.',
+              ],
+            },
+            {
+              id: 'bathroom',
+              label: 'the hall bathroom',
+              x: 54,
+              y: 18,
+              emoji: '\u{1F6BB}',
+              memory: [
+                'It was an all-guys floor, and sometimes you were on it, and sometimes you needed the bathroom.',
+                'So you learned to lift your feet up in the stall and go dead silent when the door opened.',
+                'A whole covert operation, just to spend a few more minutes down here with me.',
+              ],
+            },
+          ],
+          outro: [
+            'A hundred square feet of the best year of my life up to then.',
+          ],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 6
+    {
+      id: 'ifc',
+      number: 6,
+      title: 'IFC',
+      beats: [
+        { kind: 'title', title: 'Chapter Six', subtitle: 'IFC' },
+        {
+          kind: 'narration',
+          lines: [
+            'Our first official date. Not the stoop, not laundry. A real one.',
+            'The IFC theater in the city. The movie was Me and You and Everyone We Know.',
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: [
+            'Then sushi, which we could barely afford, and then hours of just wandering, no destination.',
+            'That was the day that turned the two of us into independent-film people for good.',
+            'We have chased small strange beautiful movies ever since, and it started right there.',
+          ],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 7
+    {
+      id: 'winter',
+      number: 7,
+      title: 'Winter Break',
+      beats: [
+        { kind: 'title', title: 'Chapter Seven', subtitle: 'Winter Break' },
+        {
+          kind: 'narration',
+          lines: [
+            'Over the holidays I drove all the way to your grandparents’ house, just to see you. Hours of it. Worth every mile.',
+            'Your grandfather had Parkinson’s, and he wandered the house at night, and more than once I woke to him standing in the doorway, just watching me sleep.',
+            'I have never been so polite and so terrified at the same time.',
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: [
+            'Before a weekend we had to spend apart, I wrote a Guster line on your dry-erase board.',
+            '[FILL: your remembered Guster lines here.]',
+            'And once, when my own friends came looking for us, we hid together in the stairwell, dead quiet, listening to them open door after door.',
+            'We just wanted to be alone. We always just wanted to be alone.',
+          ],
+        },
+        {
+          kind: 'nokia',
+          target: 'goodnight',
+          prompt: 'One more thing before the lights go out. Tap out a goodnight to her on the old Nokia. [FILL: change the target word if you like.]',
+          after: [
+            'Send. Somewhere a few floors or a few hundred miles away, a little screen lit up.',
+            'That was the whole technology of being in love in 2004. A screen lighting up in the dark.',
+          ],
+        },
+        {
+          kind: 'photo',
+          src: undefined,
+          caption: 'The guitar.',
+          fallbackNote:
+            'Drop the guitar photo at src/assets/guitar.jpg and set its src in story.ts.',
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 8
+    {
+      id: 'countryclub',
+      number: 8,
+      title: 'The Country Club',
+      beats: [
+        { kind: 'title', title: 'Chapter Eight', subtitle: 'The Country Club' },
+        {
+          kind: 'narration',
+          lines: [
+            'You flat out lied for me.',
+            'You told the country club it was a wonderful place to work and told them I had bartended, which I had absolutely not.',
+            'They believed you, because everyone believes you, and I got the job.',
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: [
+            'Which meant I lived at your parents’ house all summer.',
+            'Late nights, you washing dishes at the place in Stonestown, me behind a bar I had no business standing behind.',
+            'We were building something without ever calling it that. This was the runway. I just did not know it yet.',
+          ],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 9
+    {
+      id: 'balcony',
+      number: 9,
+      title: 'The Balcony',
+      beats: [
+        { kind: 'title', title: 'Chapter Nine', subtitle: 'The Balcony' },
+        {
+          kind: 'narration',
+          lines: [
+            'Second floor porch. Both of us home late. The stars actually out for once.',
+            'I opened my mouth and said, "I don’t have much to offer you."',
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: [
+            'And for one long second, you were certain I was breaking up with you.',
+            'I watched it cross your face. I will never forgive myself for the phrasing and I will never stop laughing about it either.',
+          ],
+        },
+        {
+          kind: 'dialogue',
+          prompt: 'Then I got down and held out the ring, which was not much of a ring. And I asked.',
+          choices: [
+            {
+              text: 'Yes.',
+              reply: ['Yes.'],
+            },
+            {
+              text: 'Yes, obviously, get up.',
+              reply: ['Yes, obviously, get up.'],
+            },
+            {
+              text: 'You had me at the ditch.',
+              reply: ['You had me at the ditch.'],
+            },
+          ],
+          after: [
+            'It did not matter at all that the ring was small.',
+            'You said yes, and the whole rest of my life started on that porch.',
+          ],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 10
+    {
+      id: 'worldsend',
+      number: 10,
+      title: 'Worlds End',
+      beats: [
+        { kind: 'title', title: 'Chapter Ten', subtitle: 'Worlds End' },
+        {
+          kind: 'narration',
+          lines: [
+            'A tiny ceremony in the woods at Worlds End State Park.',
+            'Just us and whatever family was close. My mom among them.',
+            'Humble, and beautiful, and completely ours.',
+          ],
+        },
+        {
+          kind: 'photo',
+          src: undefined,
+          caption: 'Worlds End. The day the twenty years counts from.',
+          fallbackNote:
+            'Drop the wedding photo at src/assets/wedding.jpg and set its src in story.ts.',
+        },
+        {
+          kind: 'narration',
+          lines: ['This is the moment the twenty years counts from.'],
+        },
+      ],
+    },
+
+    // ----------------------------------------------------------------- Ch 11
+    {
+      id: 'coda',
+      number: 11,
+      title: 'Coda',
+      beats: [
+        {
+          kind: 'coda',
+          script: [
+            { from: 'him', text: 'grluxy. you there?', delayMs: 1400 },
+            {
+              from: 'him',
+              text: 'it has been twenty years. we got married in the woods with almost nobody watching. we ran away from Disney like criminals. we scraped change together for Chinese food.',
+              delayMs: 3200,
+            },
+            {
+              from: 'him',
+              text: 'and somehow all of that turned into a house in Hershey, and Sal, and Annie, and this whole enormous life.',
+              delayMs: 3000,
+            },
+            {
+              from: 'him',
+              text: 'i still cannot afford half the things i want to give you. i would still choose the ditch, and the mentalist, and every bit of it, every single time.',
+              delayMs: 3400,
+            },
+            {
+              from: 'him',
+              text: 'happy anniversary. i love you. still star4ker. still yours.',
+              delayMs: 2600,
+            },
+          ],
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------ Ch 12 bonus
+    {
+      id: 'thieves',
+      number: 'bonus',
+      title: 'Thieves in the Night',
+      bonus: true,
+      beats: [
+        { kind: 'title', title: 'Bonus Chapter', subtitle: 'Thieves in the Night' },
+        {
+          kind: 'narration',
+          lines: [
+            'The Disney College Program.',
+            'Me on nights at Chef Mickey’s, you on days at the dinosaur ride, the two of us passing each other like ships and syncing our one day off to go be tourists in our own park.',
+            'The whole thing was quietly a total wash financially. We did not care even a little.',
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: [
+            'And then the getaway.',
+            'We packed the little Toyota in the dark, told exactly one costume desk we would not be coming back, and drove straight through from Florida to Pennsylvania.',
+            'No plan. No sense. Two kids and a full tank.',
+            'We were young and a little dumb, and it is a great story now.',
+          ],
+        },
+        {
+          kind: 'narration',
+          lines: ['Okay. That is the last one. For real this time.'],
+        },
+      ],
+    },
+  ],
+}

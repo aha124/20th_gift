@@ -1,0 +1,198 @@
+/* Harborview — a period desktop, warm and a little worn. */
+
+:root {
+  --desk-bg: #12233d;
+  --desk-bg-2: #1c3355;
+  --crt-glow: rgba(120, 200, 255, 0.06);
+
+  /* AIM palette, circa 2004 */
+  --aim-blue: #0a5ad6;
+  --aim-blue-deep: #08348a;
+  --aim-name: #0033cc;
+  --aim-yellow: #ffcc00;
+  --win-face: #ece9d8;
+  --win-face-2: #d4d0c8;
+  --win-border-lt: #ffffff;
+  --win-border-dk: #808080;
+  --win-title-1: #0a246a;
+  --win-title-2: #3a6ea5;
+
+  --paper: #f4efe4;
+  --ink: #23201a;
+  --ink-soft: #4a463c;
+  --accent: #b5462f;
+
+  --mono: "Lucida Console", "Courier New", monospace;
+  --ui: Tahoma, "Segoe UI", Geneva, Verdana, sans-serif;
+  --serif: "Georgia", "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--ui);
+  color: var(--ink);
+  background: #060d18;
+  overflow: hidden;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* The desktop surface everything sits on. */
+.desktop {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(140% 100% at 50% 0%, var(--desk-bg-2), var(--desk-bg) 55%, #0b1830 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Faint CRT scanlines + vignette over the whole thing. */
+.desktop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.05) 3px
+    ),
+    radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.45) 100%);
+  mix-blend-mode: multiply;
+  z-index: 9000;
+}
+
+.stage {
+  position: relative;
+  width: min(100%, 1180px);
+  height: min(100%, 820px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+/* --- Window chrome (shared 2004 look) --- */
+.win {
+  background: var(--win-face);
+  border: 1px solid var(--win-border-dk);
+  border-top-color: var(--win-border-lt);
+  border-left-color: var(--win-border-lt);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 1px 1px 0 rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.win__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 13px;
+  background: linear-gradient(to bottom, var(--win-title-2), var(--win-title-1));
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.win__title .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: radial-gradient(circle at 30% 30%, #ffe27a, #e5a100);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.win__spacer {
+  flex: 1;
+}
+
+.win__btn {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #17407a;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #5f8fd0, #2b5aa0);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: default;
+}
+
+/* Generic tap button */
+.btn {
+  font-family: var(--ui);
+  font-size: 13px;
+  padding: 6px 14px;
+  border: 1px solid var(--win-border-dk);
+  border-top-color: var(--win-border-lt);
+  border-left-color: var(--win-border-lt);
+  background: linear-gradient(to bottom, #fbfbf7, var(--win-face-2));
+  color: var(--ink);
+  border-radius: 3px;
+  cursor: pointer;
+}
+.btn:active {
+  background: linear-gradient(to top, #fbfbf7, var(--win-face-2));
+}
+.btn--primary {
+  background: linear-gradient(to bottom, #4f8fe0, #245bad);
+  color: #fff;
+  border-color: #17407a;
+  font-weight: bold;
+}
+
+/* Fades used across scenes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fadeIn 0.6s ease both;
+}
+
+.center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* Small "advance" hint that pulses. */
+.tap-hint {
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+  text-transform: uppercase;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.7; }
+}
+
+@media (max-width: 640px) {
+  .stage { padding: 6px; }
+}

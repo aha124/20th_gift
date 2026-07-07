@@ -1,0 +1,155 @@
+.coda-reboot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  background: #000;
+}
+.coda-reboot__logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6fb0ff, #b06fff);
+  box-shadow: 0 0 30px rgba(120, 160, 255, 0.5);
+}
+.coda-reboot__bar {
+  width: 160px;
+  height: 5px;
+  background: #222;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.coda-reboot__bar span {
+  display: block;
+  height: 100%;
+  background: #eee;
+  animation: fill 2.4s linear forwards;
+}
+
+.coda {
+  display: grid;
+  place-items: center;
+}
+.coda__phone {
+  width: 360px;
+  max-width: 92vw;
+  height: min(700px, 82vh);
+  background: #f2f4f8;
+  border-radius: 34px;
+  border: 10px solid #0b0c0f;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.coda__notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 22px;
+  background: #0b0c0f;
+  border-radius: 0 0 14px 14px;
+  z-index: 2;
+}
+.coda__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 30px 16px 10px;
+  background: rgba(245, 246, 250, 0.92);
+  border-bottom: 1px solid #dfe2e8;
+}
+.coda__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2b2b2b, #555);
+  color: #ffd54a;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+.coda__name {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 15px;
+  color: #16181d;
+}
+.coda__sub {
+  font-size: 11px;
+  color: #8b909a;
+}
+.coda__thread {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fff;
+}
+.bubble {
+  max-width: 78%;
+  padding: 9px 13px;
+  border-radius: 18px;
+  font-family: var(--ui);
+  font-size: 14px;
+  line-height: 1.4;
+  animation: fadeIn 0.4s ease both;
+}
+.bubble--him {
+  align-self: flex-start;
+  background: #e7e9ee;
+  color: #16181d;
+  border-bottom-left-radius: 5px;
+}
+.bubble--her {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #34a0ff, #2b7cff);
+  color: #fff;
+  border-bottom-right-radius: 5px;
+}
+.bubble--typing {
+  display: flex;
+  gap: 4px;
+}
+.bubble--typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9aa0aa;
+  animation: pulse 1s ease-in-out infinite;
+}
+.bubble--typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.bubble--typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.coda__reply {
+  padding: 14px 16px 20px;
+  border-top: 1px solid #dfe2e8;
+  background: #f6f7fa;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.coda__reply-hint {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: #55596180;
+  color: #6a6f78;
+}
+.coda__reply .btn--primary {
+  font-size: 20px;
+  padding: 6px 22px;
+}

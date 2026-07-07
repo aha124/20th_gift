@@ -1,0 +1,274 @@
+/* Narration, titles, dialogue, the dorm room, photo reveals. */
+
+.scene {
+  width: min(680px, 92vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+}
+
+/* --- Title card --- */
+.title-card {
+  color: #eaf1fb;
+}
+.title-card__kicker {
+  font-family: var(--ui);
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #8fb4e6;
+  margin-bottom: 10px;
+}
+.title-card__name {
+  font-family: var(--serif);
+  font-size: clamp(34px, 7vw, 58px);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 20px rgba(60, 130, 220, 0.35);
+}
+
+/* --- Narration card: warm paper, typed out --- */
+.narration {
+  background: linear-gradient(180deg, #faf6ec, var(--paper));
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 30px 34px;
+  width: min(640px, 92vw);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
+  border: 1px solid #e2d9c4;
+  font-family: var(--serif);
+  font-size: clamp(17px, 2.4vw, 21px);
+  line-height: 1.62;
+  text-align: left;
+  min-height: 120px;
+}
+.narration p {
+  margin: 0 0 0.7em;
+}
+.narration p:last-child {
+  margin-bottom: 0;
+}
+.narration .cursor {
+  display: inline-block;
+  width: 0.5ch;
+  animation: pulse 1s steps(1) infinite;
+  color: var(--accent);
+}
+
+/* --- Dialogue choices --- */
+.dialogue__prompt {
+  font-family: var(--serif);
+  font-size: clamp(17px, 2.4vw, 21px);
+  color: #eef3fb;
+  line-height: 1.5;
+  max-width: 600px;
+}
+.dialogue__choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(520px, 92vw);
+}
+.choice {
+  font-family: var(--ui);
+  font-size: 15px;
+  text-align: left;
+  padding: 13px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #cbd4e2;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.15s;
+}
+.choice:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  border-color: #7ea6e0;
+}
+
+/* --- CD swerve interaction --- */
+.swerve-stage {
+  position: relative;
+  width: min(680px, 92vw);
+  height: 360px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: radial-gradient(120% 100% at 50% 20%, #24344f, #0c1526 90%);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  transition: transform 0.5s;
+}
+.swerve-stage.tilt {
+  animation: swerve 1.1s ease-in-out forwards;
+}
+@keyframes swerve {
+  0% { transform: rotate(0) translateX(0); }
+  30% { transform: rotate(-7deg) translateX(-30px); }
+  60% { transform: rotate(6deg) translateX(24px); }
+  100% { transform: rotate(2deg) translateX(0); filter: brightness(0.7); }
+}
+.cd-btn {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 50% 50%, #10131a 16%, transparent 17%),
+    conic-gradient(from 0deg, #c0d8ff, #ffd1e8, #d8ffe0, #fff3c0, #c0d8ff);
+  box-shadow: 0 0 24px rgba(150, 200, 255, 0.6), inset 0 0 12px rgba(0, 0, 0, 0.4);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.swerve-road {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(255, 255, 255, 0.14) 0 2px, transparent 2px) center/8px 44px repeat-y;
+  opacity: 0.5;
+}
+
+/* --- Point and click room --- */
+.room {
+  width: min(760px, 94vw);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+.room__intro {
+  color: #dce6f5;
+  font-family: var(--serif);
+  font-size: clamp(15px, 2.2vw, 18px);
+  line-height: 1.5;
+  max-width: 620px;
+  text-align: center;
+}
+.room__stage {
+  position: relative;
+  width: min(760px, 94vw);
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, #7a6247, #6a5540),
+    repeating-linear-gradient(90deg, #7a6247 0 40px, #745d43 40px 80px);
+  background-blend-mode: multiply;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.5);
+  border: 3px solid #3a2e20;
+  overflow: hidden;
+}
+.room__floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 26%;
+  background: repeating-linear-gradient(90deg, #5a4632 0 30px, #55422f 30px 60px);
+  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.hotspot__dot {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  border-radius: 50%;
+  background: rgba(255, 245, 220, 0.14);
+  border: 2px dashed rgba(255, 240, 200, 0.6);
+  transition: transform 0.1s, background 0.15s;
+}
+.hotspot:hover .hotspot__dot {
+  transform: scale(1.12);
+  background: rgba(255, 245, 220, 0.28);
+}
+.hotspot--seen .hotspot__dot {
+  border-style: solid;
+  opacity: 0.6;
+}
+.hotspot__label {
+  font-family: var(--ui);
+  font-size: 11px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.room__memory {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 14, 24, 0.82);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.room__done {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.room__progress {
+  color: #b9c6da;
+  font-size: 12px;
+  font-family: var(--ui);
+}
+
+/* --- Photo reveal --- */
+.photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.photo__frame {
+  background: #fbf7ee;
+  padding: 14px 14px 44px;
+  border-radius: 3px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+  transform: rotate(-1.4deg);
+  max-width: min(520px, 88vw);
+}
+.photo__img {
+  width: min(480px, 82vw);
+  height: auto;
+  display: block;
+  background: #dfd8c8;
+}
+.photo__placeholder {
+  width: min(480px, 82vw);
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(45deg, #e7e0d0 0 12px, #ddd5c2 12px 24px);
+  color: #8a8272;
+  font-family: var(--ui);
+  font-size: 13px;
+  text-align: center;
+  padding: 20px;
+}
+.photo__caption {
+  font-family: var(--serif);
+  font-style: italic;
+  color: #33302a;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 15px;
+}

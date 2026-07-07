@@ -1,0 +1,131 @@
+/* A little candybar phone, 2004 vintage. */
+
+.nokia {
+  width: 268px;
+  max-width: 92vw;
+  background: linear-gradient(to bottom, #3a4048, #23272c);
+  border-radius: 26px 26px 30px 30px;
+  padding: 20px 18px 26px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border: 1px solid #11141a;
+}
+
+.nokia__brand {
+  text-align: center;
+  color: #aeb4bc;
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.nokia__screen {
+  background: #c3d3a0;
+  border-radius: 6px;
+  padding: 10px;
+  min-height: 118px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.35);
+  color: #26331a;
+  font-family: var(--mono);
+  border: 2px solid #1a1d22;
+  display: flex;
+  flex-direction: column;
+}
+.nokia__status {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+.nokia__signal::before {
+  content: '\1F4F6';
+}
+.nokia__prompt {
+  font-size: 11px;
+  opacity: 0.75;
+  margin-bottom: 4px;
+}
+.nokia__text {
+  font-size: 15px;
+  line-height: 1.35;
+  word-break: break-word;
+  flex: 1;
+}
+.nokia__pending {
+  background: #26331a;
+  color: #c3d3a0;
+  padding: 0 1px;
+  border-radius: 2px;
+  animation: pulse 0.9s ease-in-out infinite;
+}
+.nokia__caret {
+  animation: pulse 1s steps(1) infinite;
+}
+.nokia__target-ok {
+  color: #2a6b1a;
+  font-weight: bold;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.nokia__softkeys {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 2px 8px;
+}
+.nokia__soft {
+  font-family: var(--ui);
+  font-size: 12px;
+  color: #cfd4da;
+  background: #2b2f35;
+  border: 1px solid #14171c;
+  border-radius: 5px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.nokia__soft:active {
+  background: #1c1f24;
+}
+.nokia__soft--go {
+  color: #bfe6a0;
+}
+.nokia__soft[disabled] {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.nokia__keys {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.nokia__key {
+  background: linear-gradient(to bottom, #4a5058, #2c3138);
+  border: 1px solid #12151a;
+  border-radius: 10px;
+  padding: 8px 0 6px;
+  color: #eef1f4;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: transform 0.05s;
+}
+.nokia__key:active {
+  transform: translateY(1px);
+  background: linear-gradient(to top, #4a5058, #2c3138);
+}
+.nokia__key .num {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+}
+.nokia__key .sub {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: #aab0b8;
+  margin-top: 3px;
+  min-height: 10px;
+}
