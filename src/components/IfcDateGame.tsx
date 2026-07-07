@@ -19,6 +19,29 @@ const TRAINS = [
   { line: 'L', dest: 'Canarsie', right: false, color: '#a7a9ac' },
 ]
 
+/** The Staten Island Ferry — famously orange. */
+function FerrySprite() {
+  return (
+    <svg className="ifc__ferry" viewBox="0 0 56 34" shapeRendering="crispEdges" aria-label="Staten Island Ferry">
+      {/* hull */}
+      <polygon points="2,20 54,20 50,30 6,30" fill="#f2671b" />
+      <rect x="2" y="20" width="52" height="2" fill="#c34e10" />
+      {/* cabin */}
+      <rect x="8" y="8" width="40" height="12" fill="#f2671b" />
+      <rect x="8" y="8" width="40" height="2" fill="#ff8a3d" />
+      {/* windows */}
+      {[12, 20, 28, 36].map((x) => (
+        <rect key={x} x={x} y="12" width="6" height="5" fill="#1c2a3a" />
+      ))}
+      {/* pilot house + stack */}
+      <rect x="22" y="3" width="12" height="5" fill="#f2671b" />
+      <rect x="26" y="0" width="4" height="4" fill="#3a2a1a" />
+      {/* waterline foam */}
+      <rect x="4" y="30" width="48" height="2" fill="#dff0f7" />
+    </svg>
+  )
+}
+
 /** Chapter 6: the whole IFC date — ticket, sushi, the right train, the ferry. */
 export default function IfcDateGame({ after, onNext }: Props) {
   const [step, setStep] = useState<Step>('ticket')
@@ -128,7 +151,9 @@ export default function IfcDateGame({ after, onNext }: Props) {
           <div className="ifc__heading">South Ferry. The last leg: the Staten Island Ferry home to Wagner.</div>
           <div className="ifc__harbor">
             <div className="ifc__water" />
-            <div className={`ifc__boat ${boarded ? 'sailing' : ''}`}>⛴️</div>
+            <div className={`ifc__boat ${boarded ? 'sailing' : ''}`}>
+              <FerrySprite />
+            </div>
             <div className="ifc__shore ifc__shore--left">🏙️</div>
             <div className="ifc__shore ifc__shore--right">🗽</div>
           </div>

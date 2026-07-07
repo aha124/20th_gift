@@ -9,13 +9,28 @@ interface Props {
   onNext: () => void
 }
 
-const STEPS = 8
+const STEPS = 9
+const FLIGHT = 3 // steps per flight before a landing + change of direction
 const TICK = 100
 
+// Switchback geometry, all in % of the shaft so it scales.
+const LEFT_X = 16
+const DX = 22
+const RIGHT_X = LEFT_X + (FLIGHT - 1) * DX
+const FLIGHTS = Math.ceil(STEPS / FLIGHT)
+
+const stepX = (s: number) => {
+  const f = Math.floor(s / FLIGHT)
+  const p = s % FLIGHT
+  return f % 2 === 0 ? LEFT_X + p * DX : RIGHT_X - p * DX
+}
+const stepRow = (s: number) => s + Math.floor(s / FLIGHT) // +1 row per landing above
+const rowY = (row: number) => 14 + row * 7.4
+
 /**
- * Sneak the two of you down the stairwell. Tap "Down" while it's clear
- * (green); tap while a friend is near (red) and you get spotted and lose a
- * step. Reach the bottom to escape. Un-losable — being seen just sets you back.
+ * Sneak the two of you down a switchback stairwell — flights that reverse
+ * direction at each landing. Tap "Down" while it's clear (green); tap while a
+ * friend is near (red) and you get spotted and lose a step. Un-losable.
  */
 export default function StairwellGame({ intro, after, onNext }: Props) {
   const [step, setStep] = useState(0)
@@ -29,8 +44,7 @@ export default function StairwellGame({ intro, after, onNext }: Props) {
     const id = setInterval(() => {
       if (done.current) return
       tick.current += 1
-      // ~1.6s clear, ~1.2s a friend is near.
-      setClear(tick.current % 28 < 16)
+      setClear(tick.current % 28 < 16) // ~1.6s clear, ~1.2s a friend near
       force()
     }, TICK)
     return () => clearInterval(id)
@@ -47,7 +61,6 @@ export default function StairwellGame({ intro, after, onNext }: Props) {
       setStep(next)
       if (next >= STEPS) done.current = true
     } else {
-      // Spotted: duck back up a step.
       woozy()
       setSpotted(true)
       setStep((s) => Math.max(0, s - 1))
@@ -55,35 +68,53 @@ export default function StairwellGame({ intro, after, onNext }: Props) {
     }
   }
 
+  // Landing platforms sit at each turn, on the side where the flight ends.
+  const landings = Array.from({ length: FLIGHTS - 1 }, (_, f) => ({
+    x: f % 2 === 0 ? RIGHT_X : LEFT_X,
+    row: FLIGHT * (f + 1) + f, // the empty row between flights
+  }))
+
   return (
     <div className="scene stair fade-in">
       <div className="stair__intro">{intro}</div>
 
       <div className={`stair__shaft ${spotted ? 'stair__shaft--spotted' : ''}`}>
-        {/* Friends peering in at the top */}
         <div className={`stair__friends ${clear ? '' : 'near'}`}>
           {clear ? '🚪 …quiet…' : '🔦 "check the stairs!"'}
         </div>
-        {/* The staircase */}
-        <div className="stair__steps">
-          {Array.from({ length: STEPS }, (_, i) => {
-            const idx = STEPS - 1 - i // idx: top step = STEPS-1, bottom = 0
-            // The pair starts at the top and descends toward the exit.
-            const pairAt = STEPS - 1 - step
-            return (
-              <div className="stair__step" key={idx} style={{ marginLeft: `${idx * 22}px` }}>
-                {idx === pairAt && <span className="stair__pair">🧍‍♀️🧍</span>}
-              </div>
-            )
-          })}
-          <div className="stair__exit">exit →</div>
+
+        {landings.map((l, i) => (
+          <div
+            key={`land${i}`}
+            className="stair__landing"
+            style={{ left: `${l.x - 4}%`, top: `${rowY(l.row)}%` }}
+          />
+        ))}
+
+        {Array.from({ length: STEPS }, (_, s) => (
+          <div
+            key={s}
+            className="stair__step"
+            style={{ left: `${stepX(s)}%`, top: `${rowY(stepRow(s))}%` }}
+          >
+            {s === step && <span className="stair__pair">🧍‍♀️🧍</span>}
+          </div>
+        ))}
+
+        <div
+          className="stair__exit"
+          style={{ left: `${stepX(STEPS - 1) + 2}%`, top: `${rowY(stepRow(STEPS - 1)) + 8}%` }}
+        >
+          exit →
         </div>
       </div>
 
       <div className={`stair__light stair__light--${clear ? 'go' : 'stop'}`}>
         {clear ? 'CLEAR — go!' : 'FREEZE'}
       </div>
-      <div className="stair__progress">step {step} / {STEPS}</div>
+      <div className="stair__progress">
+        step {step} / {STEPS}
+      </div>
 
       <button className="btn btn--primary stair__down" onClick={stepDown}>
         ⬇ Step down

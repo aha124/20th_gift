@@ -359,7 +359,7 @@ export const story: Story = {
         },
         {
           kind: 'stairwell',
-          intro: 'My own friends came looking for us, opening door after door. So the two of us slipped into the stairwell to disappear. Get both of you down the stairs while their footsteps are far — freeze the moment they get close.',
+          intro: 'Our friends came looking for us, opening door after door. So the two of us slipped into the stairwell to disappear. Get both of you down the stairs while their footsteps are far — freeze the moment they get close.',
           after: [
             'We made it to the bottom, breathless and laughing into our own hands.',
             'We just wanted to be alone. We always just wanted to be alone.',
