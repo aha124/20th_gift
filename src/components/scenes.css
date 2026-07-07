@@ -255,12 +255,17 @@
   white-space: nowrap;
 }
 .room__memory {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: 200;
   background: rgba(8, 14, 24, 0.82);
   display: grid;
   place-items: center;
   padding: 24px;
+}
+.room__memory-card {
+  max-height: 84vh;
+  overflow-y: auto;
 }
 .room__done {
   display: flex;

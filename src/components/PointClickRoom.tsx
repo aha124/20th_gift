@@ -46,7 +46,11 @@ export default function PointClickRoom({ intro, objects, outro, onNext }: Props)
 
         {active && (
           <div className="room__memory" onClick={() => setActive(null)}>
-            <div className="narration" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 520 }}>
+            <div
+              className="narration room__memory-card"
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: 520 }}
+            >
               {active.memory.map((m, i) => (
                 <p key={i}>{m}</p>
               ))}
