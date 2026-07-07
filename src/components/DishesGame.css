@@ -1,0 +1,112 @@
+.dishes {
+  gap: 14px;
+}
+.dishes__intro {
+  color: #dce6f5;
+  font-family: var(--serif);
+  font-size: clamp(15px, 2.2vw, 18px);
+  line-height: 1.5;
+  max-width: 560px;
+  text-align: center;
+}
+.dishes__sink {
+  position: relative;
+  width: min(520px, 92vw);
+  background: linear-gradient(to bottom, #9aa3ac, #7c858f);
+  border: 4px solid #5a626b;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: inset 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+.dishes__rack {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  min-height: 120px;
+  place-items: center;
+}
+.dishes__dish {
+  width: 60px;
+  height: 60px;
+  font-size: 34px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.08s;
+}
+.dishes__dish:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.72);
+}
+.dishes__dish:active {
+  transform: scale(0.94);
+}
+.dishes__dish--soup {
+  background: rgba(210, 150, 60, 0.4);
+  border-color: rgba(230, 180, 90, 0.8);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.dishes__empty {
+  grid-column: 1 / -1;
+  font-family: var(--serif);
+  font-size: 20px;
+  color: #2b3a1c;
+}
+.dishes__water {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  height: 26px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(to bottom, rgba(150, 200, 235, 0.5), rgba(90, 150, 200, 0.6));
+  z-index: 1;
+}
+.dishes__count {
+  font-family: var(--ui);
+  font-size: 13px;
+  color: #b9c6da;
+}
+.dishes__toast {
+  font-family: var(--ui);
+  font-size: 14px;
+  color: #fff;
+  background: rgba(20, 40, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 14px;
+  border-radius: 8px;
+  animation: fadeIn 0.3s ease both;
+}
+.dishes__modal-back {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 13, 24, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 60;
+}
+.dishes__modal {
+  width: 340px;
+  max-width: 90vw;
+}
+.dishes__modal-body {
+  background: #fff;
+  padding: 16px;
+  font-family: var(--ui);
+  font-size: 14px;
+  color: var(--ink);
+}
+.dishes__modal-body p {
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+.dishes__modal-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

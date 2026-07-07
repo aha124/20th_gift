@@ -56,6 +56,23 @@ export type Beat =
   | { kind: 'pointclick'; intro: string; objects: RoomObject[]; outro: string[] }
   | { kind: 'photo'; src?: string; caption: string; fallbackNote: string }
   | { kind: 'coda'; script: AimStep[] }
+  // Chapter 6: the whole IFC date, start to finish.
+  | { kind: 'ifcdate'; after: string[] }
+  // Chapter 7: hold still so Pappy doesn't catch you awake.
+  | { kind: 'staystill'; intro: string; after: string[] }
+  // Chapter 7: sneak two of you down the stairwell past his friends.
+  | { kind: 'stairwell'; intro: string; after: string[] }
+  // Chapter 8: the Sonestown dish pit (with a French onion soup Easter egg).
+  | { kind: 'dishes'; intro: string; after: string[] }
+  // Chapter 9: the proposal, over a pixel-art porch at night.
+  | {
+      kind: 'balcony'
+      intro: string[]
+      setup: string[]
+      prompt: string
+      choices: DialogueChoice[]
+      after: string[]
+    }
 
 export interface Chapter {
   id: string

@@ -197,16 +197,16 @@ export const story: Story = {
           kind: 'narration',
           lines: [
             'It was laundry. Of all the ways it could have happened, it was laundry.',
-            'A basket of it between us, quarters in your pocket, nowhere better to be.',
-            'We ended up in the car to wait out the dryer.',
+            'We were done, the baskets loaded into the backseat of my old black Mitsubishi Galant.',
+            'It was raining, so we just sat there a while with the radio on.',
           ],
         },
         {
           kind: 'narration',
           lines: [
-            'A Guns N’ Roses song was on. [FILL: the song title].',
-            'And the whole ordinary night went soft around the edges, and I kissed you.',
-            'Or you kissed me. I have never been completely sure, and I like it better that way.',
+            'A Guns N’ Roses song was on.',
+            'The windows fogged, the rain kept coming, and we kissed.',
+            'Just like that. Laundry, of all things.',
           ],
         },
       ],
@@ -230,9 +230,12 @@ export const story: Story = {
               y: 34,
               emoji: '\u{1F6CF}\u{FE0F}',
               memory: [
-                'You wanted the room to look exactly like it did. Exactly. You said so and went to shower.',
-                'So I put every single thing back. The furniture, the posters, your bags, all of it, precisely where it started.',
-                'You were not amused. I thought it was the funniest thing I had ever done.',
+                'There were two beds in that little room, and one day you decided to rearrange the whole thing.',
+                'You stood one of the frames straight up against the wall. It looked completely insane, and you knew it.',
+                'You looked around at the disaster, said you could not be in there another second, and went to shower. Could I please just fix it.',
+                'So I put the entire room back. Every frame, every poster, every bag, exactly where it had been.',
+                'You came back to a room that looked like nothing had happened. You could not believe I did not just run for it.',
+                'I think that might be the day you decided to keep me.',
               ],
             },
             {
@@ -245,17 +248,6 @@ export const story: Story = {
                 'Boy Meets World on the little TV, night after night.',
                 'Chinese food paid for out of a change jar we raided for quarters.',
                 'We had nothing and I would not trade a minute of it.',
-              ],
-            },
-            {
-              id: 'whitecastle',
-              label: 'a White Castle bag',
-              x: 44,
-              y: 66,
-              emoji: '\u{1F354}',
-              memory: [
-                'My mom came to visit and brought White Castle, because that is love in my family.',
-                'The whole room smelled like onions for two days. Worth it.',
               ],
             },
             {
@@ -313,12 +305,12 @@ export const story: Story = {
           lines: [
             'Our first official date. Not the stoop, not laundry. A real one.',
             'The IFC theater in the city. The movie was Me and You and Everyone We Know.',
+            'Let us do the whole day, start to finish.',
           ],
         },
         {
-          kind: 'narration',
-          lines: [
-            'Then sushi, which we could barely afford, and then hours of just wandering, no destination.',
+          kind: 'ifcdate',
+          after: [
             'That was the day that turned the two of us into independent-film people for good.',
             'We have chased small strange beautiful movies ever since, and it started right there.',
           ],
@@ -337,16 +329,39 @@ export const story: Story = {
           kind: 'narration',
           lines: [
             'Over the holidays I drove all the way to your grandparents’ house, just to see you. Hours of it. Worth every mile.',
-            'Your grandfather had Parkinson’s, and he wandered the house at night, and more than once I woke to him standing in the doorway, just watching me sleep.',
-            'I have never been so polite and so terrified at the same time.',
+            'Your grandfather, Pappy, had Parkinson’s and a little dementia, and he wandered the house at night.',
+            'Once I woke in the dark to him standing right at the foot of the bed, just watching. Terrifying in the moment.',
+            'One of a hundred strange, eccentric things that all turned into funny stories later.',
+          ],
+        },
+        {
+          kind: 'staystill',
+          intro: 'It is the middle of the night, and Pappy is up again, shuffling toward the foot of the bed. Duck under the covers and hold perfectly still whenever his eyes are open, so he does not see you are awake.',
+          after: [
+            'He stared a while, decided the world was in order, and shuffled back off down the hall.',
+            'You did not wake up for any of it. I decided not to mention it until morning.',
           ],
         },
         {
           kind: 'narration',
+          lines: ['Before a weekend we had to spend apart, I wrote a few Guster lines on your dry-erase board.'],
+        },
+        {
+          kind: 'narration',
           lines: [
-            'Before a weekend we had to spend apart, I wrote a Guster line on your dry-erase board.',
-            '[FILL: your remembered Guster lines here.]',
-            'And once, when my own friends came looking for us, we hid together in the stairwell, dead quiet, listening to them open door after door.',
+            '“You were almost kind',
+            'You were almost true',
+            'Why give away the other side of you?',
+            'You have learned in time',
+            'That you must be cruel',
+            'I’ll have to wait to get the best of you”',
+          ],
+        },
+        {
+          kind: 'stairwell',
+          intro: 'My own friends came looking for us, opening door after door. So the two of us slipped into the stairwell to disappear. Get both of you down the stairs while their footsteps are far — freeze the moment they get close.',
+          after: [
+            'We made it to the bottom, breathless and laughing into our own hands.',
             'We just wanted to be alone. We always just wanted to be alone.',
           ],
         },
@@ -379,17 +394,24 @@ export const story: Story = {
         {
           kind: 'narration',
           lines: [
-            'You flat out lied for me.',
-            'You told the country club it was a wonderful place to work and told them I had bartended, which I had absolutely not.',
-            'They believed you, because everyone believes you, and I got the job.',
+            'You flat out lied to me, and I am so glad you did.',
+            'You told me the country club was a wonderful place to work. It was anything but.',
+            'I had bartended before, so at least that part was true. I would have believed anything you told me anyway.',
           ],
         },
         {
           kind: 'narration',
           lines: [
-            'Which meant I lived at your parents’ house all summer.',
-            'Late nights, you washing dishes at the place in Stonestown, me behind a bar I had no business standing behind.',
-            'We were building something without ever calling it that. This was the runway. I just did not know it yet.',
+            'It meant I lived at your parents’ house all summer.',
+            'Late nights. You washing dishes at the place in Sonestown, me behind the bar trying my best to keep a straight face.',
+          ],
+        },
+        {
+          kind: 'dishes',
+          intro: 'Closing time at Sonestown, and the pit is stacked to the ceiling. Tap a dish to wash it. Clear the rack before you can go.',
+          after: [
+            'I was so glad just to be near you that I would have done the whole summer over again, and changed nothing about it.',
+            'This was the runway to everything. I just did not know it yet.',
           ],
         },
       ],
@@ -403,34 +425,23 @@ export const story: Story = {
       beats: [
         { kind: 'title', title: 'Chapter Nine', subtitle: 'The Balcony' },
         {
-          kind: 'narration',
-          lines: [
-            'Second floor porch. Both of us home late. The stars actually out for once.',
-            'I opened my mouth and said, "I don’t have much to offer you."',
+          kind: 'balcony',
+          intro: [
+            'Second floor porch. Both of us home late, the stars actually out for once.',
+            'I opened my mouth and said, “I don’t have much to offer you.”',
           ],
-        },
-        {
-          kind: 'narration',
-          lines: [
-            'And for one long second, you were certain I was breaking up with you.',
-            'I watched it cross your face. I will never forgive myself for the phrasing and I will never stop laughing about it either.',
+          setup: [
+            'I was desperate for you to say yes.',
+            'You could have said no so easily. We had no business getting married, we were far too young.',
+            'But we both already knew this was exactly where it was always going.',
           ],
-        },
-        {
-          kind: 'dialogue',
-          prompt: 'Then I got down and held out the ring, which was not much of a ring. And I asked.',
+          prompt: 'Then I got down on the porch and held out the ring, which was not much of a ring. And I asked.',
           choices: [
+            { text: 'Yes.', reply: ['Yes.'] },
+            { text: 'Yes, obviously, get up.', reply: ['Yes, obviously, get up.'] },
             {
-              text: 'Yes.',
-              reply: ['Yes.'],
-            },
-            {
-              text: 'Yes, obviously, get up.',
-              reply: ['Yes, obviously, get up.'],
-            },
-            {
-              text: 'You had me at the ditch.',
-              reply: ['You had me at the ditch.'],
+              text: 'Are you breaking up with me?',
+              reply: ['Are you breaking up with me?', 'No. God, no. The exact opposite.', '…Then yes.'],
             },
           ],
           after: [
@@ -482,18 +493,23 @@ export const story: Story = {
             { from: 'him', text: 'grluxy. you there?', delayMs: 1400 },
             {
               from: 'him',
-              text: 'it has been twenty years. we got married in the woods with almost nobody watching. we ran away from Disney like criminals. we scraped change together for Chinese food.',
+              text: 'it has been twenty years. we got married in the woods with almost nobody watching. we ran away from Disney like thieves in the night. we scraped change together for Chinese food.',
               delayMs: 3200,
             },
             {
               from: 'him',
-              text: 'and somehow all of that turned into a house in Hershey, and Sal, and Annie, and this whole enormous life.',
+              text: 'and somehow all of that turned into a house in Hershey, and Sal, and Annie, and Bowie, and Penny, and this whole enormous life.',
               delayMs: 3000,
             },
             {
               from: 'him',
-              text: 'i still cannot afford half the things i want to give you. i would still choose the ditch, and the mentalist, and every bit of it, every single time.',
+              text: 'i still struggle every single day to find new ways to say it. that i love our life. that i love you. that i have never once been happier.',
               delayMs: 3400,
+            },
+            {
+              from: 'him',
+              text: 'we were so young and so reckless. a hundred things could have gone wrong and none of them did. and i know now that in every version of this, in every reality, it always ends up right here. with you.',
+              delayMs: 3600,
             },
             {
               from: 'him',

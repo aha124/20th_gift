@@ -14,6 +14,11 @@ import HypnosisGame from '../components/HypnosisGame'
 import PointClickRoom from '../components/PointClickRoom'
 import PhotoReveal from '../components/PhotoReveal'
 import CodaScreen from '../components/CodaScreen'
+import IfcDateGame from '../components/IfcDateGame'
+import StayStillGame from '../components/StayStillGame'
+import StairwellGame from '../components/StairwellGame'
+import DishesGame from '../components/DishesGame'
+import BalconyScene from '../components/BalconyScene'
 import './StoryMachine.css'
 
 interface Save {
@@ -219,6 +224,25 @@ function BeatView({ beat, onNext }: { beat: Beat; onNext: () => void }) {
       )
     case 'coda':
       return <CodaScreen script={beat.script} onDone={onNext} />
+    case 'ifcdate':
+      return <IfcDateGame after={beat.after} onNext={onNext} />
+    case 'staystill':
+      return <StayStillGame intro={beat.intro} after={beat.after} onNext={onNext} />
+    case 'stairwell':
+      return <StairwellGame intro={beat.intro} after={beat.after} onNext={onNext} />
+    case 'dishes':
+      return <DishesGame intro={beat.intro} after={beat.after} onNext={onNext} />
+    case 'balcony':
+      return (
+        <BalconyScene
+          intro={beat.intro}
+          setup={beat.setup}
+          prompt={beat.prompt}
+          choices={beat.choices}
+          after={beat.after}
+          onNext={onNext}
+        />
+      )
     default:
       return null
   }

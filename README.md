@@ -27,14 +27,17 @@ screen to power on.
 Everything Ashley reads is in **`src/content/story.ts`** — all narration, every
 AIM script, the dialogue choices, the coda, and the chapter order. Edit freely.
 
-Search that file for **`[FILL: ...]`** to find the spots waiting on a real line
-from you:
+Search that file for **`[FILL: ...]`** to find the optional spots you can still
+personalize:
 
-- Chapter 3 — his AIM away message, and the buddy-info profile quote
-- Chapter 4 — the Guns N' Roses song title (name only, no lyrics)
-- Chapter 7 — the Guster line for the dry-erase board, and the goodnight word
-  she taps out on the Nokia
-- `HIS_PROFILE.quote` at the top of the file
+- Chapter 3 — his AIM away message
+- Chapter 7 — the goodnight word she taps out on the Nokia
+- `HIS_PROFILE.quote` at the top of the file (the AIM buddy-info quote line)
+
+> Note: the Guns N' Roses song (Ch. 4) is referenced by name only, and the
+> Guster lines on the dry-erase board (Ch. 7) are the ones you supplied, typed
+> in as content. Since this repo is public, keep in mind those lyrics are
+> reproduced here — make the repo private if that matters to you.
 
 ## Photos
 
@@ -64,7 +67,13 @@ src/
     PointClickRoom.tsx    Chapter 5 clickable dorm
     NarrationCard.tsx     typed narration beats
     DialogueScene.tsx     warm dialogue choices
-    CdSwerve.tsx          the cold-open interaction
+    CdSwerve.tsx          Chapter 1 pixel-art driving cold-open
+    HypnosisGame.tsx      Chapter 2 resist-the-mentalist game
+    IfcDateGame.tsx       Chapter 6 date: ticket, sushi, subway, ferry
+    StayStillGame.tsx     Chapter 7 hold-still-for-Pappy game
+    StairwellGame.tsx     Chapter 7 sneak-down-the-stairs game
+    DishesGame.tsx        Chapter 8 dish pit (French onion Easter egg)
+    BalconyScene.tsx      Chapter 9 pixel-art porch proposal
     PhotoReveal.tsx       unlockable real photos
     CodaScreen.tsx        the present-day closing message
   audio/sound.ts          synthesized sounds
