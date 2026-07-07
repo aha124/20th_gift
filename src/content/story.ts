@@ -396,7 +396,8 @@ export const story: Story = {
           lines: [
             'You flat out lied to me, and I am so glad you did.',
             'You told me the country club was a wonderful place to work. It was anything but.',
-            'I had bartended before, so at least that part was true. I would have believed anything you told me anyway.',
+            'But I did not care even a little. It meant a whole summer with you.',
+            'I had bartended before, so I could do the job just fine. That the place was miserable never once mattered.',
           ],
         },
         {
