@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { story } from '../content/story'
 import type { Beat } from './types'
 import { isMuted, setMuted } from '../audio/sound'
+import { SAVE_KEY, resetAll } from './storage'
 
 import TitleCard from '../components/TitleCard'
 import NarrationCard from '../components/NarrationCard'
@@ -14,8 +15,6 @@ import PointClickRoom from '../components/PointClickRoom'
 import PhotoReveal from '../components/PhotoReveal'
 import CodaScreen from '../components/CodaScreen'
 import './StoryMachine.css'
-
-const SAVE_KEY = 'harborview.save.v1'
 
 interface Save {
   chapterIdx: number
@@ -46,6 +45,7 @@ export default function StoryMachine() {
   const [playingBonus, setPlayingBonus] = useState(initial?.playingBonus ?? false)
   const [bonusUnlocked, setBonusUnlocked] = useState(initial?.bonusUnlocked ?? false)
   const [muted, setMutedState] = useState(isMuted())
+  const [confirmReset, setConfirmReset] = useState(false)
 
   const chapter = playingBonus ? bonusChapter! : mainChapters[chapterIdx]
   const beat: Beat | undefined = chapter?.beats[beatIdx]
@@ -101,6 +101,12 @@ export default function StoryMachine() {
     setMutedState(next)
   }
 
+  // A full restart: wipe the save and reload so the old computer boots again.
+  function hardReset() {
+    resetAll()
+    window.location.reload()
+  }
+
   const label = useMemo(() => {
     if (phase === 'ended') return 'Harborview'
     const num = chapter.number === 'bonus' ? 'Bonus' : `Ch. ${chapter.number}`
@@ -116,7 +122,32 @@ export default function StoryMachine() {
         <button className="sm__icon" onClick={toggleMute} title={muted ? 'Unmute' : 'Mute'}>
           {muted ? '🔇' : '🔊'}
         </button>
+        <button className="sm__icon" onClick={() => setConfirmReset(true)} title="Start over">
+          ↺
+        </button>
       </div>
+
+      {confirmReset && (
+        <div className="sm__confirm-back" onClick={() => setConfirmReset(false)}>
+          <div className="win sm__confirm" onClick={(e) => e.stopPropagation()}>
+            <div className="win__title">
+              <span className="dot" />
+              Start over?
+            </div>
+            <div className="sm__confirm-body">
+              <p>This clears your saved place and boots the old computer from the very beginning.</p>
+              <div className="sm__confirm-btns">
+                <button className="btn btn--primary" onClick={hardReset}>
+                  Start from the boot screen
+                </button>
+                <button className="btn" onClick={() => setConfirmReset(false)}>
+                  Keep my place
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="sm__stage">
         {phase === 'ended' ? (

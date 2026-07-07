@@ -1,4 +1,5 @@
 .sm {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
@@ -49,6 +50,36 @@
   justify-content: center;
   padding: 20px 16px;
   overflow-y: auto;
+}
+
+/* Start-over confirmation */
+.sm__confirm-back {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 13, 24, 0.55);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+}
+.sm__confirm {
+  width: 340px;
+  max-width: 90vw;
+}
+.sm__confirm-body {
+  background: #fff;
+  padding: 16px 18px;
+  font-family: var(--ui);
+  font-size: 14px;
+  color: var(--ink);
+}
+.sm__confirm-body p {
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+.sm__confirm-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 @media (max-width: 640px) {
