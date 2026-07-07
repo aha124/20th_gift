@@ -127,7 +127,7 @@ export default function AimWindow({ script, buddyAway, onDone }: Props) {
         {herAway && <div className="aim-away-tag">Away: {herAway}</div>}
         <div className="aim-bl__body">
           <div className="aim-group">
-            <span className="tri">▼</span> Buddies (1/2)
+            <span className="tri">▼</span> Buddies (1/1)
           </div>
           <div
             className="aim-buddy aim-buddy--on"
@@ -136,7 +136,6 @@ export default function AimWindow({ script, buddyAway, onDone }: Props) {
           >
             {HIS_SN}
           </div>
-          <div className="aim-buddy aim-buddy--off">roommate_erin</div>
 
           <div className="aim-group">
             <span className="tri">▼</span> Family (0/1)

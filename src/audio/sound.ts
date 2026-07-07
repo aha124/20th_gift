@@ -117,6 +117,24 @@ export function chime() {
   tone(988, 0.1, 0.22, { type: 'sine', gain: 0.16 })
 }
 
+/** A silly chicken squawk for the hypnotist game. */
+export function cluck() {
+  tone(520, 0, 0.07, { type: 'sawtooth', gain: 0.1, to: 760 })
+  tone(680, 0.08, 0.06, { type: 'sawtooth', gain: 0.09, to: 440 })
+  tone(600, 0.16, 0.05, { type: 'square', gain: 0.07 })
+}
+
+/** A low woozy tone while the spiral pulls at you. */
+export function woozy() {
+  tone(180, 0, 0.4, { type: 'sine', gain: 0.06, to: 120 })
+}
+
+/** A crunch/thud for the swerve into the ditch. */
+export function crunch() {
+  noiseBurst(0, 0.35, 0.16)
+  tone(90, 0, 0.3, { type: 'square', gain: 0.14, to: 50 })
+}
+
 /**
  * A synthesized evocation of a 56k handshake: the dial tones, the carrier
  * warble, and the wash of static that everyone born before 1995 can hear in

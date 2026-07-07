@@ -9,6 +9,7 @@ import DialogueScene from '../components/DialogueScene'
 import CdSwerve from '../components/CdSwerve'
 import AimWindow from '../components/AimWindow'
 import NokiaPhone from '../components/NokiaPhone'
+import HypnosisGame from '../components/HypnosisGame'
 import PointClickRoom from '../components/PointClickRoom'
 import PhotoReveal from '../components/PhotoReveal'
 import CodaScreen from '../components/CodaScreen'
@@ -158,6 +159,15 @@ function BeatView({ beat, onNext }: { beat: Beat; onNext: () => void }) {
       return <AimWindow script={beat.script} buddyAway={beat.buddyAway} onDone={onNext} />
     case 'nokia':
       return <NokiaPhone target={beat.target} prompt={beat.prompt} onDone={onNext} />
+    case 'hypnosis':
+      return (
+        <HypnosisGame
+          intro={beat.intro}
+          commands={beat.commands}
+          after={beat.after}
+          onNext={onNext}
+        />
+      )
     case 'pointclick':
       return (
         <PointClickRoom

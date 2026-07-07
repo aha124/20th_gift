@@ -45,6 +45,14 @@ export type Beat =
       /** A short line shown after she finishes tapping it out. */
       after: string[]
     }
+  | {
+      kind: 'hypnosis'
+      intro: string
+      /** Taunts the mentalist cycles through while the spiral spins. */
+      commands: string[]
+      /** Narration once she resists (or mostly resists). */
+      after: string[]
+    }
   | { kind: 'pointclick'; intro: string; objects: RoomObject[]; outro: string[] }
   | { kind: 'photo'; src?: string; caption: string; fallbackNote: string }
   | { kind: 'coda'; script: AimStep[] }

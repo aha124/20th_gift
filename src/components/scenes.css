@@ -89,50 +89,94 @@
   border-color: #7ea6e0;
 }
 
-/* --- CD swerve interaction --- */
-.swerve-stage {
+/* --- Driving POV (cold open) --- */
+.drive {
   position: relative;
   width: min(680px, 92vw);
-  height: 360px;
+  aspect-ratio: 16 / 10;
   border-radius: 10px;
   overflow: hidden;
-  background: radial-gradient(120% 100% at 50% 20%, #24344f, #0c1526 90%);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
-  display: grid;
-  place-items: center;
-  transition: transform 0.5s;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.55);
+  border: 3px solid #05070c;
+  transform-origin: 50% 90%;
 }
-.swerve-stage.tilt {
-  animation: swerve 1.1s ease-in-out forwards;
+.drive--crash {
+  animation: swerve 1.5s ease-in-out forwards;
 }
 @keyframes swerve {
   0% { transform: rotate(0) translateX(0); }
-  30% { transform: rotate(-7deg) translateX(-30px); }
-  60% { transform: rotate(6deg) translateX(24px); }
-  100% { transform: rotate(2deg) translateX(0); filter: brightness(0.7); }
+  22% { transform: rotate(-6deg) translateX(-26px); }
+  48% { transform: rotate(7deg) translateX(28px); }
+  70% { transform: rotate(-3deg) translateX(-12px); }
+  100% { transform: rotate(2deg) translateX(0); filter: brightness(0.45) saturate(0.6); }
 }
-.cd-btn {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 74px;
-  height: 74px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  background:
-    radial-gradient(circle at 50% 50%, #10131a 16%, transparent 17%),
-    conic-gradient(from 0deg, #c0d8ff, #ffd1e8, #d8ffe0, #fff3c0, #c0d8ff);
-  box-shadow: 0 0 24px rgba(150, 200, 255, 0.6), inset 0 0 12px rgba(0, 0, 0, 0.4);
-  animation: pulse 1.4s ease-in-out infinite;
-}
-.swerve-road {
+.drive__svg {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  display: block;
+}
+/* Faint speed dashes running up the road toward the horizon. */
+.drive__motion {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 4px;
+  height: 38%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.drive__motion span {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: 6px;
+  background: rgba(240, 230, 190, 0.55);
+  border-radius: 1px;
+  transform: translateX(-50%) scale(0.2);
+  animation: roadDash 2s linear infinite;
+}
+@keyframes roadDash {
+  0% { top: 0; transform: translateX(-50%) scale(0.2); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { top: 100%; transform: translateX(-50%) scale(1.6); opacity: 0; }
+}
+.drive__cd {
+  position: absolute;
+  right: 30%;
+  bottom: 8%;
+  width: 58px;
+  height: 58px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  animation: pulse 1.3s ease-in-out infinite;
+}
+.drive__cd-disc {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   background:
-    linear-gradient(to top, rgba(255, 255, 255, 0.14) 0 2px, transparent 2px) center/8px 44px repeat-y;
-  opacity: 0.5;
+    radial-gradient(circle at 50% 50%, #10131a 15%, transparent 16%),
+    conic-gradient(from 0deg, #c0d8ff, #ffd1e8, #d8ffe0, #fff3c0, #c0d8ff);
+  box-shadow: 0 0 22px rgba(160, 205, 255, 0.7), inset 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.drive__flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  animation: flash 1.5s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes flash {
+  0% { opacity: 0; }
+  10% { opacity: 0.85; }
+  100% { opacity: 0; }
 }
 
 /* --- Point and click room --- */

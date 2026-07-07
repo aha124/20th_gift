@@ -64,6 +64,21 @@ export const story: Story = {
           ],
         },
         {
+          kind: 'hypnosis',
+          intro: 'The mentalist locks eyes with the room. Do not cluck. Whatever you do, do not cluck. Mash Resist to hold out.',
+          commands: [
+            'you are getting very sleepy…',
+            'when I snap, you are a chicken',
+            'you feel your wings… you feel the urge…',
+            'look into my eyes, only my eyes',
+            'a proud, beautiful hen',
+          ],
+          after: [
+            'The mentalist moves on to easier prey.',
+            'And that is when I really noticed you, holding it together three seats over.',
+          ],
+        },
+        {
           kind: 'narration',
           lines: [
             'I saw you come in. Red hair, fair skin, that look on your face like you had not decided whether to stay.',
@@ -124,7 +139,11 @@ export const story: Story = {
           kind: 'aim',
           buddyAway: '[FILL, e.g. "in the black, always in the black"]',
           script: [
-            { from: 'him', text: 'you actually made it to class today. shocking', delayMs: 900 },
+            {
+              from: 'him',
+              text: 'i cannot believe that. Tooth offered an A to anyone who could get her dog’s medicine out of the vacuum cleaner she brought to class today',
+              delayMs: 1100,
+            },
             { type: 'playerInput', mode: 'freeform', placeholder: 'type something' },
             {
               from: 'him',

@@ -1,0 +1,110 @@
+.hyp {
+  gap: 14px;
+}
+.hyp__intro {
+  color: #dce6f5;
+  font-family: var(--serif);
+  font-size: clamp(15px, 2.2vw, 18px);
+  line-height: 1.5;
+  max-width: 560px;
+}
+.hyp__spiral-wrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: grid;
+  place-items: center;
+}
+.hyp__spiral-wrap--crack {
+  animation: shake 0.3s linear infinite;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px) rotate(-1deg); }
+  75% { transform: translateX(4px) rotate(1deg); }
+}
+.hyp__spiral {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #0b1020 0deg 20deg,
+    #cdd8ef 20deg 40deg,
+    #0b1020 40deg 60deg,
+    #cdd8ef 60deg 80deg,
+    #0b1020 80deg 100deg,
+    #cdd8ef 100deg 120deg,
+    #0b1020 120deg 140deg,
+    #cdd8ef 140deg 160deg,
+    #0b1020 160deg 180deg,
+    #cdd8ef 180deg 200deg,
+    #0b1020 200deg 220deg,
+    #cdd8ef 220deg 240deg,
+    #0b1020 240deg 260deg,
+    #cdd8ef 260deg 280deg,
+    #0b1020 280deg 300deg,
+    #cdd8ef 300deg 320deg,
+    #0b1020 320deg 340deg,
+    #cdd8ef 340deg 360deg
+  );
+  animation: spin 3s linear infinite;
+  box-shadow: 0 0 30px rgba(120, 170, 255, 0.4);
+  mask: radial-gradient(circle, #000 30%, transparent 72%);
+  -webkit-mask: radial-gradient(circle, #000 30%, transparent 72%);
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.hyp__eyes {
+  position: relative;
+  font-size: 40px;
+  z-index: 2;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+.hyp__taunt {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(16px, 2.6vw, 21px);
+  color: #eaf1fb;
+  min-height: 30px;
+  text-align: center;
+}
+.hyp__meter {
+  width: min(360px, 86vw);
+}
+.hyp__meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--ui);
+  font-size: 12px;
+  color: #b9c6da;
+  margin-bottom: 4px;
+}
+.hyp__meter-track {
+  height: 16px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+.hyp__meter-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.1s linear, background 0.3s;
+}
+.hyp__buttons {
+  display: flex;
+  gap: 12px;
+}
+.hyp__resist {
+  font-size: 17px;
+  padding: 12px 26px;
+}
+.hyp__cluck {
+  font-size: 15px;
+}
+.hyp__skip {
+  font-size: 12px;
+  opacity: 0.75;
+}
