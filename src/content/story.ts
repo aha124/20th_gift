@@ -470,12 +470,16 @@ export const story: Story = {
         {
           kind: 'photo',
           srcName: 'wedding.jpg',
-          caption: 'Worlds End. The day the twenty years counts from.',
+          caption: 'Worlds End. The tiny wedding in the woods.',
           fallbackNote: 'Drop the wedding photo at src/assets/wedding.jpg and it appears here.',
         },
         {
           kind: 'narration',
-          lines: ['This is the moment the twenty years counts from.'],
+          lines: [
+            'This was the first time. A year later we did it all again, bigger, at the fire hall.',
+            'So it has been twenty-one years since these woods, and twenty since that second one.',
+            'We have never once agreed on which number is the real one. We just say twenty and call it even.',
+          ],
         },
       ],
     },
