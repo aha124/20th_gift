@@ -54,7 +54,7 @@ export type Beat =
       after: string[]
     }
   | { kind: 'pointclick'; intro: string; objects: RoomObject[]; outro: string[] }
-  | { kind: 'photo'; src?: string; caption: string; fallbackNote: string }
+  | { kind: 'photo'; src?: string; srcName?: string; caption: string; fallbackNote: string }
   | { kind: 'coda'; script: AimStep[] }
   // Chapter 6: the whole IFC date, start to finish.
   | { kind: 'ifcdate'; after: string[] }

@@ -376,10 +376,9 @@ export const story: Story = {
         },
         {
           kind: 'photo',
-          src: undefined,
+          srcName: 'guitar.jpg',
           caption: 'The guitar.',
-          fallbackNote:
-            'Drop the guitar photo at src/assets/guitar.jpg and set its src in story.ts.',
+          fallbackNote: 'Drop the guitar photo at src/assets/guitar.jpg and it appears here.',
         },
       ],
     },
@@ -470,10 +469,9 @@ export const story: Story = {
         },
         {
           kind: 'photo',
-          src: undefined,
+          srcName: 'wedding.jpg',
           caption: 'Worlds End. The day the twenty years counts from.',
-          fallbackNote:
-            'Drop the wedding photo at src/assets/wedding.jpg and set its src in story.ts.',
+          fallbackNote: 'Drop the wedding photo at src/assets/wedding.jpg and it appears here.',
         },
         {
           kind: 'narration',

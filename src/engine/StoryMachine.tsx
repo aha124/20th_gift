@@ -3,6 +3,7 @@ import { story } from '../content/story'
 import type { Beat } from './types'
 import { isMuted, setMuted } from '../audio/sound'
 import { SAVE_KEY, resetAll } from './storage'
+import { resolvePhoto } from '../assets/photos'
 
 import TitleCard from '../components/TitleCard'
 import NarrationCard from '../components/NarrationCard'
@@ -217,7 +218,7 @@ function BeatView({ beat, onNext }: { beat: Beat; onNext: () => void }) {
     case 'photo':
       return (
         <PhotoReveal
-          src={beat.src}
+          src={beat.src ?? resolvePhoto(beat.srcName)}
           caption={beat.caption}
           fallbackNote={beat.fallbackNote}
           onNext={onNext}
