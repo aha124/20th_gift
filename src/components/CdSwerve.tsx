@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NarrationCard from './NarrationCard'
 import { useTypewriter } from '../engine/useTypewriter'
-import { crunch } from '../audio/sound'
+import { crunch, gravel } from '../audio/sound'
 import './scenes.css'
 
 interface Props {
@@ -10,14 +10,82 @@ interface Props {
   onNext: () => void
 }
 
+const DRIVE_MS = 12000
+
 /**
- * The cold open. A pixel-art view out the windshield: a dirt road running
- * straight to the horizon, tall trees crowding both shoulders. The CD glows
- * on the dashboard. Reach for it, and the road disappears.
+ * The cold open. First you actually drive the van down the dirt road for a
+ * dozen seconds — hold the left or right side of the windshield (or arrow
+ * keys) to steer as the road bends. Drift onto the shoulder and the cab
+ * rattles, but the night is forgiving; the van pulls itself back. Then the CD
+ * glows on the dash, and the story does the rest.
  */
 export default function CdSwerve({ lines, after, onNext }: Props) {
-  const [stage, setStage] = useState<'setup' | 'wheel' | 'crash' | 'after'>('setup')
+  const [stage, setStage] = useState<'setup' | 'drive' | 'wheel' | 'crash' | 'after'>('setup')
   const { shown, done, skip } = useTypewriter(lines)
+
+  // Driving state lives in refs; a single rAF loop paints via setFrame.
+  const pos = useRef(0) // where the van is pointed, -1..1
+  const curve = useRef(0) // where the road actually is
+  const curveTarget = useRef(0)
+  const dir = useRef(0) // -1 | 0 | 1 from input
+  const progress = useRef(0)
+  const lastGravel = useRef(0)
+  const [frame, setFrame] = useState({ err: 0, progress: 0, offRoad: false })
+
+  useEffect(() => {
+    if (stage !== 'drive') return
+    let raf = 0
+    let last = performance.now()
+    let elapsed = 0
+
+    const step = (now: number) => {
+      const dt = Math.min(50, now - last) / 1000
+      last = now
+      elapsed += dt
+
+      // A pre-baked wandering road: deterministic, so the feel is tunable.
+      curveTarget.current = 0.9 * Math.sin(elapsed * 0.7) + 0.45 * Math.sin(elapsed * 1.6 + 1)
+      curve.current += (curveTarget.current - curve.current) * dt * 1.4
+
+      // Steering, plus a gentle self-correct so she can never truly crash.
+      pos.current += dir.current * dt * 1.25
+      pos.current += (curve.current - pos.current) * dt * 0.14
+      pos.current = Math.max(-1.3, Math.min(1.3, pos.current))
+
+      const err = curve.current - pos.current
+      const offRoad = Math.abs(err) > 0.5
+      if (offRoad && now - lastGravel.current > 380) {
+        lastGravel.current = now
+        gravel()
+      }
+
+      progress.current = Math.min(1, progress.current + (dt * 1000) / DRIVE_MS)
+      setFrame({ err, progress: progress.current, offRoad })
+
+      if (progress.current >= 1) {
+        setStage('wheel')
+        return
+      }
+      raf = requestAnimationFrame(step)
+    }
+    raf = requestAnimationFrame(step)
+
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') dir.current = -1
+      if (e.key === 'ArrowRight') dir.current = 1
+    }
+    const up = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft' && dir.current === -1) dir.current = 0
+      if (e.key === 'ArrowRight' && dir.current === 1) dir.current = 0
+    }
+    window.addEventListener('keydown', down)
+    window.addEventListener('keyup', up)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('keydown', down)
+      window.removeEventListener('keyup', up)
+    }
+  }, [stage])
 
   if (stage === 'after') {
     return <NarrationCard lines={after} onNext={onNext} />
@@ -29,16 +97,55 @@ export default function CdSwerve({ lines, after, onNext }: Props) {
     setTimeout(() => setStage('after'), 1500)
   }
 
+  const driving = stage === 'drive'
+
   return (
     <div className="scene fade-in">
-      <div className={`drive ${stage === 'crash' ? 'drive--crash' : ''}`}>
-        <DriveArt />
+      <div
+        className={`drive ${stage === 'crash' ? 'drive--crash' : ''} ${
+          driving && frame.offRoad ? 'drive--rattle' : ''
+        }`}
+      >
+        <DriveArt err={driving ? frame.err : 0} />
         <div className="drive__motion" aria-hidden>
           <span style={{ animationDelay: '0s' }} />
           <span style={{ animationDelay: '0.5s' }} />
           <span style={{ animationDelay: '1s' }} />
           <span style={{ animationDelay: '1.5s' }} />
         </div>
+
+        {driving && (
+          <>
+            <div className="drive__hud">
+              <span className="drive__hud-label">almost home</span>
+              <span className="drive__hud-track">
+                <span className="drive__hud-fill" style={{ width: `${frame.progress * 100}%` }} />
+              </span>
+            </div>
+            <button
+              className="drive__steer drive__steer--l"
+              aria-label="steer left"
+              onPointerDown={() => (dir.current = -1)}
+              onPointerUp={() => (dir.current = 0)}
+              onPointerLeave={() => dir.current === -1 && (dir.current = 0)}
+              onPointerCancel={() => (dir.current = 0)}
+            >
+              ◀
+            </button>
+            <button
+              className="drive__steer drive__steer--r"
+              aria-label="steer right"
+              onPointerDown={() => (dir.current = 1)}
+              onPointerUp={() => (dir.current = 0)}
+              onPointerLeave={() => dir.current === 1 && (dir.current = 0)}
+              onPointerCancel={() => (dir.current = 0)}
+            >
+              ▶
+            </button>
+            {frame.offRoad && <div className="drive__shoulder-warn">gravel!</div>}
+          </>
+        )}
+
         {stage === 'wheel' && (
           <button className="drive__cd" aria-label="reach for the CD" onClick={grabCd}>
             <span className="drive__cd-disc" />
@@ -52,7 +159,7 @@ export default function CdSwerve({ lines, after, onNext }: Props) {
           <div
             className="narration"
             style={{ cursor: 'pointer', width: 'min(680px, 92vw)' }}
-            onClick={() => (done ? setStage('wheel') : skip())}
+            onClick={() => (done ? setStage('drive') : skip())}
           >
             {shown.split('\n').map((p, i, arr) => (
               <p key={i}>
@@ -61,17 +168,21 @@ export default function CdSwerve({ lines, after, onNext }: Props) {
               </p>
             ))}
           </div>
-          <div className="tap-hint">{done ? 'tap to continue' : 'tap to skip'}</div>
+          <div className="tap-hint">{done ? 'tap to take the wheel' : 'tap to skip'}</div>
         </>
       )}
+      {driving && <div className="tap-hint">hold ◀ ▶ to keep the van on the road</div>}
       {stage === 'wheel' && <div className="tap-hint">reach for the CD on the dash</div>}
     </div>
   )
 }
 
-/** The pixel-art windshield scene, hand-built from blocky SVG shapes. */
-function DriveArt() {
-  // A row of pines receding toward the horizon on one side.
+/** The pixel-art windshield. `err` bends the road and parallaxes the trees. */
+function DriveArt({ err }: { err: number }) {
+  const apex = 80 + err * 38
+  const treeShift = err * 14
+  const farShift = err * 24
+
   const pine = (x: number, baseY: number, h: number, w: number, key: string) => {
     const trunkW = Math.max(1, Math.round(w * 0.16))
     return (
@@ -129,12 +240,10 @@ function DriveArt() {
       {/* Ground */}
       <rect x="0" y="42" width="160" height="58" fill="#1a2416" />
 
-      {/* Dirt road to the vanishing point */}
-      <polygon points="80,42 128,80 32,80" fill="url(#road)" />
-      {/* ruts */}
-      <polygon points="79,42 70,80 76,80" fill="#3c2e1c" />
-      <polygon points="81,42 84,80 90,80" fill="#3c2e1c" />
-      {/* rocks / texture speckles */}
+      {/* Dirt road to the (bending) vanishing point */}
+      <polygon points={`${apex},42 128,80 32,80`} fill="url(#road)" />
+      <polygon points={`${apex - 1},42 70,80 76,80`} fill="#3c2e1c" />
+      <polygon points={`${apex + 1},42 84,80 90,80`} fill="#3c2e1c" />
       {[
         [74, 52, 1],
         [86, 56, 1],
@@ -146,27 +255,30 @@ function DriveArt() {
         [90, 70, 1],
         [70, 76, 1],
       ].map(([x, y, s], i) => (
-        <rect key={`r${i}`} x={x} y={y} width={s} height={s} fill="#8a6c40" />
+        <rect key={`r${i}`} x={x + err * 8} y={y} width={s} height={s} fill="#8a6c40" />
       ))}
 
-      {/* Tall trees crowding both shoulders, receding to the horizon */}
-      {pine(36, 52, 12, 8, 'l3')}
-      {pine(24, 66, 22, 14, 'l2')}
-      {pine(9, 82, 40, 24, 'l1')}
-      {pine(124, 52, 12, 8, 'r3')}
-      {pine(136, 66, 22, 14, 'r2')}
-      {pine(151, 82, 40, 24, 'r1')}
+      {/* Tall trees crowding both shoulders; far rows parallax harder */}
+      <g transform={`translate(${farShift} 0)`}>
+        {pine(36, 52, 12, 8, 'l3')}
+        {pine(124, 52, 12, 8, 'r3')}
+      </g>
+      <g transform={`translate(${treeShift} 0)`}>
+        {pine(24, 66, 22, 14, 'l2')}
+        {pine(136, 66, 22, 14, 'r2')}
+      </g>
+      <g transform={`translate(${err * 7} 0)`}>
+        {pine(9, 82, 40, 24, 'l1')}
+        {pine(151, 82, 40, 24, 'r1')}
+      </g>
 
       {/* Dashboard / car interior in the foreground */}
       <rect x="0" y="80" width="160" height="20" fill="#0c0f14" />
       <rect x="0" y="80" width="160" height="2" fill="#1b2028" />
-      {/* steering wheel arc */}
       <path d="M52 100 Q80 78 108 100" fill="none" stroke="#22272f" strokeWidth="4" />
       <path d="M52 100 Q80 82 108 100" fill="none" stroke="#171b21" strokeWidth="2" />
-      {/* a little gauge */}
       <rect x="16" y="86" width="10" height="10" fill="#161a20" />
       <rect x="20" y="88" width="2" height="5" fill="#5f7fb0" />
-      {/* CD holder slot on the right of the dash */}
       <rect x="96" y="85" width="20" height="9" fill="#161a20" />
     </svg>
   )

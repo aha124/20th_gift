@@ -65,7 +65,12 @@ export const story: Story = {
         },
         {
           kind: 'hypnosis',
-          intro: 'The mentalist locks eyes with the room. Do not cluck. Whatever you do, do not cluck. Mash Resist to hold out.',
+          intro: 'The mentalist works the room. Watch his eye: he squints before he truly opens it, and sometimes the squint is a bluff. Resist only while the eye is open. Do not cluck.',
+          roundLines: [
+            'He blinks. Rubs his temples. Tries again, harder.',
+            'His jaw tightens. This has never happened to him before.',
+            'Sweat. Actual sweat. One more push.',
+          ],
           commands: [
             'you are getting very sleepy…',
             'when I snap, you are a chicken',
@@ -232,10 +237,8 @@ export const story: Story = {
               memory: [
                 'There were two beds in that little room, and one day you decided to rearrange the whole thing.',
                 'You stood one of the frames straight up against the wall. It looked completely insane, and you knew it.',
-                'You looked around at the disaster, said you could not be in there another second, and went to shower. Could I please just fix it.',
-                'So I put the entire room back. Every frame, every poster, every bag, exactly where it had been.',
-                'You came back to a room that looked like nothing had happened. You could not believe I did not just run for it.',
-                'I think that might be the day you decided to keep me.',
+                'You looked around at the disaster, said you could not be in there another second, and went to shower.',
+                'Could I please just fix it.',
               ],
             },
             {
@@ -288,6 +291,25 @@ export const story: Story = {
           ],
           outro: [
             'A hundred square feet of the best year of my life up to then.',
+          ],
+        },
+        {
+          kind: 'roomfix',
+          intro: 'The water comes on down the hall. You look at the wreckage. Right. Put it all back — exactly where it was.',
+          showerLine: '🚿 she is still in the shower…',
+          timeoutLine: 'The water shuts off. Footsteps. You work faster than you have ever worked in your life.',
+          items: [
+            { id: 'frame', label: 'the bed frame', emoji: '🛏️', home: { x: 22, y: 38 }, start: { x: 80, y: 22, rot: 90 }, big: true },
+            { id: 'poster', label: 'the poster', emoji: '🖼️', home: { x: 58, y: 16 }, start: { x: 14, y: 76, rot: 15 } },
+            { id: 'tv', label: 'the little TV', emoji: '📺', home: { x: 72, y: 34 }, start: { x: 38, y: 62, rot: -25 } },
+            { id: 'chair', label: 'the desk chair', emoji: '🪑', home: { x: 86, y: 58 }, start: { x: 30, y: 30, rot: -40 } },
+            { id: 'lamp', label: 'the lamp', emoji: '💡', home: { x: 42, y: 44 }, start: { x: 62, y: 78, rot: 30 } },
+            { id: 'bag', label: 'her bags', emoji: '🎒', home: { x: 12, y: 66 }, start: { x: 52, y: 26, rot: 12 } },
+          ],
+          after: [
+            'So I put the entire room back. Every frame, every poster, every bag, exactly where it had been.',
+            'You came back to a room that looked like nothing had happened. You could not believe I did not just run for it.',
+            'I think that might be the day you decided to keep me.',
           ],
         },
       ],
@@ -359,7 +381,7 @@ export const story: Story = {
         },
         {
           kind: 'stairwell',
-          intro: 'Our friends came looking for us, opening door after door. So the two of us slipped into the stairwell to disappear. Get both of you down the stairs while their footsteps are far — freeze the moment they get close.',
+          intro: 'Our friends came looking for us, opening door after door. So the two of us slipped into the stairwell to disappear. Take the stairs the way you actually did — her step, his step, taking turns — and freeze the moment the flashlight swings near.',
           after: [
             'We made it to the bottom, breathless and laughing into our own hands.',
             'We just wanted to be alone. We always just wanted to be alone.',
@@ -550,7 +572,8 @@ export const story: Story = {
         },
         {
           kind: 'carpack',
-          intro: 'Everything you own, into the back of the Toyota. Drag each thing into the trunk so it all fits — no room to spare and a long drive ahead.',
+          intro: 'Everything you own, into the back of the Toyota — before the sun comes up over the parking lot. It all fits. Barely. There is exactly one spare inch and you will not find it on the first try.',
+          retryLine: 'The sun is coming up and the neighbors are stirring. Again, quietly.',
           after: [
             'Somehow it all fit. It always somehow fit.',
             'We drove straight through from Florida to Pennsylvania. No plan. No sense. Two kids and a full tank.',

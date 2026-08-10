@@ -65,15 +65,18 @@ src/
     AimWindow.tsx         buddy list + chat  (signature mechanic 1)
     NokiaPhone.tsx        multi-tap keypad   (signature mechanic 2)
     PointClickRoom.tsx    Chapter 5 clickable dorm
+    RoomFixGame.tsx       Chapter 5 put-the-room-back drag puzzle
     NarrationCard.tsx     typed narration beats
     DialogueScene.tsx     warm dialogue choices
-    CdSwerve.tsx          Chapter 1 pixel-art driving cold-open
-    HypnosisGame.tsx      Chapter 2 resist-the-mentalist game
+    CdSwerve.tsx          Chapter 1 steerable pixel-art drive + the CD
+    HypnosisGame.tsx      Chapter 2 eye-timing resist game (3 rounds, fake-outs)
     IfcDateGame.tsx       Chapter 6 date: ticket, sushi, subway, ferry
-    StayStillGame.tsx     Chapter 7 hold-still-for-Pappy game
-    StairwellGame.tsx     Chapter 7 sneak-down-the-stairs game
-    DishesGame.tsx        Chapter 8 dish pit (French onion Easter egg)
+    StayStillGame.tsx     Chapter 7 Pappy: randomized watch windows + fake-outs
+    StairwellGame.tsx     Chapter 7 duo stairwell: alternate her/his steps
+    DishesGame.tsx        Chapter 8 scrub-the-dishes (French onion Easter egg)
     BalconyScene.tsx      Chapter 9 pixel-art porch proposal
+    CarPackGame.tsx       Bonus exact-fit trunk puzzle vs. the sunrise
+    Burst.tsx             shared CSS particle burst
     PhotoReveal.tsx       unlockable real photos
     CodaScreen.tsx        the present-day closing message
   audio/sound.ts          synthesized sounds

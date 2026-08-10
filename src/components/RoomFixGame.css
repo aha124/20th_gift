@@ -1,0 +1,95 @@
+.roomfix {
+  gap: 10px;
+}
+.roomfix__shower {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--ui);
+  font-size: 13px;
+  color: #cfe0f5;
+}
+.roomfix__shower--out {
+  color: #ffd27a;
+  font-weight: bold;
+  animation: pulse 0.7s ease-in-out 3;
+}
+.roomfix__shower-track {
+  width: 140px;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+.roomfix__shower-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #58b7d8, #a5e0f0);
+  transition: width 0.25s linear;
+}
+.roomfix__stage {
+  touch-action: none;
+  position: relative;
+}
+.roomfix__ghost {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 54px;
+  border: 2px dashed rgba(255, 240, 200, 0.55);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.roomfix__ghost span {
+  font-size: 26px;
+  opacity: 0.3;
+}
+.roomfix__ghost--big {
+  width: 72px;
+  height: 72px;
+}
+.roomfix__item {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition: transform 0.15s ease;
+  z-index: 5;
+}
+.roomfix__item--drag {
+  cursor: grabbing;
+  z-index: 10;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
+}
+.roomfix__item--placed {
+  cursor: default;
+  animation: settle 0.3s ease;
+}
+@keyframes settle {
+  0% { scale: 1.15; }
+  100% { scale: 1; }
+}
+.roomfix__emoji {
+  font-size: 34px;
+  pointer-events: none;
+}
+.roomfix__item--big .roomfix__emoji {
+  font-size: 52px;
+}
+.roomfix__label {
+  font-family: var(--ui);
+  font-size: 10px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  pointer-events: none;
+}

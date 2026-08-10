@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import NarrationCard from './NarrationCard'
-import { keyTone, woozy } from '../audio/sound'
+import Burst from './Burst'
+import { keyTone, woozy, stumble, chime } from '../audio/sound'
 import './StairwellGame.css'
 
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
   after: string[]
   onNext: () => void
 }
+
+type Mover = 'her' | 'him'
 
 const STEPS = 9
 const FLIGHT = 3 // steps per flight before a landing + change of direction
@@ -28,23 +31,26 @@ const stepRow = (s: number) => s + Math.floor(s / FLIGHT) // +1 row per landing 
 const rowY = (row: number) => 14 + row * 7.4
 
 /**
- * Sneak the two of you down a switchback stairwell — flights that reverse
- * direction at each landing. Tap "Down" while it's clear (green); tap while a
- * friend is near (red) and you get spotted and lose a step. Un-losable.
+ * Sneak the two of you down the switchback stairwell together: her step, then
+ * his, taking turns. Same feet twice = a stumble (no progress). Moving while
+ * the flashlight swings near = spotted, back up a step. Un-losable.
  */
 export default function StairwellGame({ intro, after, onNext }: Props) {
   const [step, setStep] = useState(0)
   const [clear, setClear] = useState(true)
   const [spotted, setSpotted] = useState(false)
-  const tick = useRef(0)
+  const [oops, setOops] = useState(false)
+  const [lastMover, setLastMover] = useState<Mover | null>(null)
+  const [burstKey, setBurstKey] = useState(0)
+  const tickRef = useRef(0)
   const done = useRef(false)
   const [, force] = useReducer((x) => x + 1, 0)
 
   useEffect(() => {
     const id = setInterval(() => {
       if (done.current) return
-      tick.current += 1
-      setClear(tick.current % 28 < 16) // ~1.6s clear, ~1.2s a friend near
+      tickRef.current += 1
+      setClear(tickRef.current % 28 < 16) // ~1.6s clear, ~1.2s a friend near
       force()
     }, TICK)
     return () => clearInterval(id)
@@ -54,17 +60,31 @@ export default function StairwellGame({ intro, after, onNext }: Props) {
     return <NarrationCard lines={after} onNext={onNext} />
   }
 
-  function stepDown() {
-    if (clear) {
-      keyTone(4)
-      const next = step + 1
-      setStep(next)
-      if (next >= STEPS) done.current = true
-    } else {
+  function stepDown(who: Mover) {
+    if (!clear) {
+      // Spotted: duck back up a step and regroup.
       woozy()
       setSpotted(true)
+      setLastMover(null)
       setStep((s) => Math.max(0, s - 1))
       window.setTimeout(() => setSpotted(false), 600)
+      return
+    }
+    if (lastMover === who) {
+      // Same feet twice: you trip over each other. No progress, no loss.
+      stumble()
+      setOops(true)
+      window.setTimeout(() => setOops(false), 700)
+      return
+    }
+    keyTone(4)
+    setLastMover(who)
+    const next = step + 1
+    setStep(next)
+    if (next >= STEPS) {
+      done.current = true
+      chime()
+      setBurstKey((k) => k + 1)
     }
   }
 
@@ -73,12 +93,13 @@ export default function StairwellGame({ intro, after, onNext }: Props) {
     x: f % 2 === 0 ? RIGHT_X : LEFT_X,
     row: FLIGHT * (f + 1) + f, // the empty row between flights
   }))
+  const pairAt = STEPS - 1 - step
 
   return (
     <div className="scene stair fade-in">
       <div className="stair__intro">{intro}</div>
 
-      <div className={`stair__shaft ${spotted ? 'stair__shaft--spotted' : ''}`}>
+      <div className={`stair__shaft ${spotted ? 'stair__shaft--spotted' : ''} ${oops ? 'stair__shaft--oops' : ''}`}>
         <div className={`stair__friends ${clear ? '' : 'near'}`}>
           {clear ? '🚪 …quiet…' : '🔦 "check the stairs!"'}
         </div>
@@ -97,7 +118,12 @@ export default function StairwellGame({ intro, after, onNext }: Props) {
             className="stair__step"
             style={{ left: `${stepX(s)}%`, top: `${rowY(stepRow(s))}%` }}
           >
-            {s === step && <span className="stair__pair">🧍‍♀️🧍</span>}
+            {s === pairAt && (
+              <span className="stair__pair">
+                <span className={lastMover === 'her' ? 'stair__lead' : ''}>🧍‍♀️</span>
+                <span className={lastMover === 'him' ? 'stair__lead' : ''}>🧍</span>
+              </span>
+            )}
           </div>
         ))}
 
@@ -107,18 +133,26 @@ export default function StairwellGame({ intro, after, onNext }: Props) {
         >
           exit →
         </div>
+        {oops && <div className="stair__oops">you trip over each other</div>}
+        {burstKey > 0 && <Burst key={burstKey} />}
       </div>
 
       <div className={`stair__light stair__light--${clear ? 'go' : 'stop'}`}>
-        {clear ? 'CLEAR — go!' : 'FREEZE'}
+        {clear ? 'CLEAR — take turns!' : 'FREEZE'}
       </div>
       <div className="stair__progress">
         step {step} / {STEPS}
+        {lastMover && <> · {lastMover === 'her' ? 'his turn' : 'her turn'}</>}
       </div>
 
-      <button className="btn btn--primary stair__down" onClick={stepDown}>
-        ⬇ Step down
-      </button>
+      <div className="stair__duo">
+        <button className="btn btn--primary stair__down" onClick={() => stepDown('her')}>
+          🧍‍♀️ Her step
+        </button>
+        <button className="btn btn--primary stair__down" onClick={() => stepDown('him')}>
+          🧍 His step
+        </button>
+      </div>
       <button className="btn stair__skip" onClick={onNext}>
         Skip →
       </button>

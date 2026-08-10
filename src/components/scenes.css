@@ -179,6 +179,89 @@
   100% { opacity: 0; }
 }
 
+/* --- The drivable segment --- */
+.drive--rattle {
+  animation: rattle 0.16s linear infinite;
+}
+@keyframes rattle {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-2px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(2px, 1px); }
+}
+.drive__steer {
+  position: absolute;
+  top: 0;
+  bottom: 20%;
+  width: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 30px;
+  touch-action: none;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 14px;
+}
+.drive__steer:active {
+  color: rgba(255, 255, 255, 0.8);
+}
+.drive__steer--l {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 14px;
+}
+.drive__steer--r {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 14px;
+}
+.drive__hud {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 3;
+  pointer-events: none;
+}
+.drive__hud-label {
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(230, 240, 255, 0.7);
+}
+.drive__hud-track {
+  width: 130px;
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+.drive__hud-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #6fb0ff, #b9d8ff);
+}
+.drive__shoulder-warn {
+  position: absolute;
+  bottom: 26%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--ui);
+  font-size: 13px;
+  font-weight: bold;
+  color: #ffd27a;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  animation: pulse 0.3s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* --- Point and click room --- */
 .room {
   width: min(760px, 94vw);

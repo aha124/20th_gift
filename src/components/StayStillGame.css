@@ -37,6 +37,14 @@
   transform: scale(1.12) translateY(4px);
   filter: brightness(1.1) drop-shadow(0 0 12px rgba(255, 220, 120, 0.5));
 }
+.staystill__pappy.stirring {
+  transform: rotate(-8deg) translateY(2px);
+  filter: brightness(0.95);
+}
+.staystill__status.stirring {
+  color: #ffe9b8;
+  background: rgba(180, 140, 40, 0.3);
+}
 .staystill__status {
   font-family: var(--ui);
   font-weight: bold;

@@ -21,6 +21,7 @@ import StairwellGame from '../components/StairwellGame'
 import DishesGame from '../components/DishesGame'
 import BalconyScene from '../components/BalconyScene'
 import CarPackGame from '../components/CarPackGame'
+import RoomFixGame from '../components/RoomFixGame'
 import './StoryMachine.css'
 
 interface Save {
@@ -202,6 +203,18 @@ function BeatView({ beat, onNext }: { beat: Beat; onNext: () => void }) {
         <HypnosisGame
           intro={beat.intro}
           commands={beat.commands}
+          roundLines={beat.roundLines}
+          after={beat.after}
+          onNext={onNext}
+        />
+      )
+    case 'roomfix':
+      return (
+        <RoomFixGame
+          intro={beat.intro}
+          showerLine={beat.showerLine}
+          timeoutLine={beat.timeoutLine}
+          items={beat.items}
           after={beat.after}
           onNext={onNext}
         />
@@ -235,7 +248,14 @@ function BeatView({ beat, onNext }: { beat: Beat; onNext: () => void }) {
     case 'dishes':
       return <DishesGame intro={beat.intro} after={beat.after} onNext={onNext} />
     case 'carpack':
-      return <CarPackGame intro={beat.intro} after={beat.after} onNext={onNext} />
+      return (
+        <CarPackGame
+          intro={beat.intro}
+          retryLine={beat.retryLine}
+          after={beat.after}
+          onNext={onNext}
+        />
+      )
     case 'balcony':
       return (
         <BalconyScene

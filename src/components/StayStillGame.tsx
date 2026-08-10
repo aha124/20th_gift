@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import NarrationCard from './NarrationCard'
-import { woozy } from '../audio/sound'
+import { woozy, eyeCue, snore } from '../audio/sound'
 import './StayStillGame.css'
 
 interface Props {
@@ -9,34 +9,60 @@ interface Props {
   onNext: () => void
 }
 
+type Phase = 'sleep' | 'stir' | 'watch'
+
 const TICK = 100
-const GAIN = 1.6 // stillness gained per tick
+const GAIN = 1.6 // stillness gained per clean tick
 const CATCH_PENALTY = 16
+const STIR_MS = 550
+const FAKEOUT = 0.35
+
+const rand = (a: number, b: number) => a + Math.random() * (b - a)
 
 /**
- * Pappy shuffles up in the dark. Hold the "Stay still" pad down whenever his
- * eyes are open; let go while he's looking and he notices. Fill the bar to
- * outlast him. You can't really lose — getting caught just sets you back.
+ * Pappy's watch windows are random now, and he fakes you out: a stir always
+ * comes first, but sometimes he just rolls over and snores. Only a truly open
+ * eye can catch you — releasing during a fake-out is free. That's the joke.
  */
 export default function StayStillGame({ intro, after, onNext }: Props) {
   const holding = useRef(false)
   const still = useRef(0)
-  const tick = useRef(0)
+  const phase = useRef<Phase>('sleep')
+  const phaseLeft = useRef(rand(1000, 2200))
   const penalized = useRef(false)
-  const phase = useRef<'play' | 'won'>('play')
+  const mode = useRef<'play' | 'won'>('play')
   const [caught, setCaught] = useState(0)
   const [flash, setFlash] = useState(false)
   const [, force] = useReducer((x) => x + 1, 0)
 
   useEffect(() => {
     const id = setInterval(() => {
-      if (phase.current !== 'play') return
-      tick.current += 1
-      // 1.6s watching, 1.4s resting.
-      const watching = tick.current % 30 < 16
-      if (tick.current % 30 === 0) penalized.current = false
+      if (mode.current !== 'play') return
 
-      if (watching && !holding.current && !penalized.current) {
+      phaseLeft.current -= TICK
+      if (phaseLeft.current <= 0) {
+        if (phase.current === 'sleep') {
+          phase.current = 'stir'
+          phaseLeft.current = STIR_MS
+        } else if (phase.current === 'stir') {
+          if (Math.random() < FAKEOUT) {
+            phase.current = 'sleep'
+            phaseLeft.current = rand(1000, 2200)
+            snore()
+          } else {
+            phase.current = 'watch'
+            phaseLeft.current = rand(1200, 2400)
+            penalized.current = false
+            eyeCue()
+          }
+        } else {
+          phase.current = 'sleep'
+          phaseLeft.current = rand(1000, 2200)
+        }
+      }
+
+      // Only a truly open eye can catch you.
+      if (phase.current === 'watch' && !holding.current && !penalized.current) {
         penalized.current = true
         still.current = Math.max(0, still.current - CATCH_PENALTY)
         setCaught((c) => c + 1)
@@ -47,13 +73,13 @@ export default function StayStillGame({ intro, after, onNext }: Props) {
         still.current = Math.min(100, still.current + GAIN)
       }
 
-      if (still.current >= 100) phase.current = 'won'
+      if (still.current >= 100) mode.current = 'won'
       force()
     }, TICK)
     return () => clearInterval(id)
   }, [])
 
-  if (phase.current === 'won') {
+  if (mode.current === 'won') {
     const lines = [...after]
     if (caught > 0) {
       lines.unshift(
@@ -65,7 +91,7 @@ export default function StayStillGame({ intro, after, onNext }: Props) {
     return <NarrationCard lines={lines} onNext={onNext} />
   }
 
-  const watching = tick.current % 30 < 16
+  const p = phase.current
   const grab = () => {
     holding.current = true
     force()
@@ -75,14 +101,27 @@ export default function StayStillGame({ intro, after, onNext }: Props) {
     force()
   }
 
+  const statusText =
+    p === 'watch'
+      ? '👁 EYES OPEN — hold still!'
+      : p === 'stir'
+        ? '🫣 he stirs — is he…?'
+        : '😴 he drifts…'
+
   return (
     <div className={`scene staystill fade-in ${flash ? 'staystill--flash' : ''}`}>
       <div className="staystill__intro">{intro}</div>
 
       <div className="staystill__room">
-        <div className={`staystill__pappy ${watching ? 'watching' : ''}`}>👴</div>
-        <div className={`staystill__status ${watching ? 'watching' : 'resting'}`}>
-          {watching ? '👁 EYES OPEN — hold still!' : '😴 he looked away — breathe'}
+        <div className={`staystill__pappy ${p === 'watch' ? 'watching' : ''} ${p === 'stir' ? 'stirring' : ''}`}>
+          👴
+        </div>
+        <div
+          className={`staystill__status ${
+            p === 'watch' ? 'watching' : p === 'stir' ? 'stirring' : 'resting'
+          }`}
+        >
+          {statusText}
         </div>
         <div className="staystill__bed">🛏️ {holding.current ? '…（frozen）' : '（you shift）'}</div>
       </div>
@@ -95,7 +134,7 @@ export default function StayStillGame({ intro, after, onNext }: Props) {
         <div className="staystill__meter-track">
           <div
             className="staystill__meter-fill"
-            style={{ width: `${still.current}%`, background: watching ? '#d9534f' : '#4caf50' }}
+            style={{ width: `${still.current}%`, background: p === 'watch' ? '#d9534f' : '#4caf50' }}
           />
         </div>
       </div>

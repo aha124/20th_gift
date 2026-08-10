@@ -20,6 +20,19 @@ export interface DialogueChoice {
   reply: string[]
 }
 
+/** One scattered item in the put-the-room-back game. Positions are % of the room. */
+export interface RoomFixItem {
+  id: string
+  label: string
+  emoji: string
+  /** Where it belongs. */
+  home: { x: number; y: number }
+  /** Where the rearranging disaster left it (rot in degrees). */
+  start: { x: number; y: number; rot: number }
+  /** The bed frame renders larger. */
+  big?: boolean
+}
+
 /** A clickable object in the point-and-click dorm room. */
 export interface RoomObject {
   id: string
@@ -50,6 +63,8 @@ export type Beat =
       intro: string
       /** Taunts the mentalist cycles through while the spiral spins. */
       commands: string[]
+      /** Interstitial lines shown between the three rounds. */
+      roundLines: string[]
       /** Narration once she resists (or mostly resists). */
       after: string[]
     }
@@ -64,8 +79,17 @@ export type Beat =
   | { kind: 'stairwell'; intro: string; after: string[] }
   // Chapter 8: the Sonestown dish pit (with a French onion soup Easter egg).
   | { kind: 'dishes'; intro: string; after: string[] }
-  // Bonus: pack everything into the Toyota (simple no-rotation puzzle).
-  | { kind: 'carpack'; intro: string; after: string[] }
+  // Bonus: pack everything into the Toyota (exact-fit, no-rotation puzzle).
+  | { kind: 'carpack'; intro: string; retryLine: string; after: string[] }
+  // Chapter 5: put the room back exactly the way it was, before she's out of the shower.
+  | {
+      kind: 'roomfix'
+      intro: string
+      showerLine: string
+      timeoutLine: string
+      items: RoomFixItem[]
+      after: string[]
+    }
   // Chapter 9: the proposal, over a pixel-art porch at night.
   | {
       kind: 'balcony'

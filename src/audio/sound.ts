@@ -152,6 +152,54 @@ export function snap() {
   tone(520, 0.04, 0.06, { type: 'square', gain: 0.08 })
 }
 
+/** Low gravel rumble for drifting off the dirt road. */
+export function gravel() {
+  noiseBurst(0, 0.22, 0.07)
+  tone(70, 0, 0.2, { type: 'square', gain: 0.08, to: 55 })
+}
+
+/** A clumsy stumble — wrong foot on the stairs. */
+export function stumble() {
+  tone(220, 0, 0.08, { type: 'square', gain: 0.1, to: 140 })
+  tone(120, 0.09, 0.12, { type: 'square', gain: 0.09, to: 80 })
+}
+
+/** A tiny rising cue when an eye opens — the moment to act (or freeze). */
+export function eyeCue() {
+  tone(660, 0, 0.07, { type: 'sine', gain: 0.1 })
+  tone(990, 0.06, 0.09, { type: 'sine', gain: 0.09 })
+}
+
+/** A dry clock tick for countdown pressure. */
+export function tick() {
+  tone(1100, 0, 0.03, { type: 'square', gain: 0.05 })
+}
+
+/** A flat denied buzz — you acted at the wrong moment. */
+export function deniedBuzz() {
+  tone(150, 0, 0.11, { type: 'square', gain: 0.08 })
+}
+
+/** A long low snore — the fake-out resolving back to sleep. */
+export function snore() {
+  tone(110, 0, 0.35, { type: 'sine', gain: 0.05, to: 85 })
+}
+
+/** Sunrise sting — time ran out (kept gentle, it's a comedy beat). */
+export function sunriseSting() {
+  tone(392, 0, 0.25, { type: 'triangle', gain: 0.14 })
+  tone(494, 0.2, 0.25, { type: 'triangle', gain: 0.13 })
+  tone(587, 0.4, 0.4, { type: 'triangle', gain: 0.12 })
+}
+
+/** A little victory jingle for finishing a game. */
+export function victory() {
+  tone(523, 0, 0.12, { type: 'triangle', gain: 0.16 })
+  tone(659, 0.11, 0.12, { type: 'triangle', gain: 0.16 })
+  tone(784, 0.22, 0.14, { type: 'triangle', gain: 0.16 })
+  tone(1046, 0.36, 0.28, { type: 'triangle', gain: 0.18 })
+}
+
 /**
  * A synthesized evocation of a 56k handshake: the dial tones, the carrier
  * warble, and the wash of static that everyone born before 1995 can hear in

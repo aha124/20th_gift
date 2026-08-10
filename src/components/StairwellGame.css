@@ -90,9 +90,34 @@
   font-size: 12px;
   color: #b9c6da;
 }
+.stair__duo {
+  display: flex;
+  gap: 12px;
+}
 .stair__down {
-  font-size: 17px;
-  padding: 12px 30px;
+  font-size: 16px;
+  padding: 12px 22px;
+  min-height: 48px;
+}
+.stair__shaft--oops {
+  animation: rattle 0.16s linear 4;
+}
+.stair__oops {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  font-family: var(--ui);
+  font-size: 13px;
+  color: #ffd27a;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+.stair__pair {
+  display: inline-flex;
+}
+.stair__lead {
+  transform: translateY(-2px);
 }
 .stair__skip {
   font-size: 12px;
