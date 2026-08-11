@@ -57,10 +57,10 @@ export const story: Story = {
         {
           kind: 'narration',
           lines: [
-            'You get to Wagner late, because of course you do.',
+            'You get to Wagner late despite trying your best to stall.',
             'Mark walks you into some all-purpose room where a man who calls himself a mentalist is halfway through convincing a row of freshmen that they are chickens.',
-            'And off to the side there is this other guy, dressed head to toe in black, because he had just come from an audition and apparently owns no other colors.',
-            'That is me.',
+            'And sitting right behind you is this other guy, dressed head to toe in black, because he had just come from an audition and apparently owns no other colors.',
+            'That's  me.',
           ],
         },
         {
@@ -226,7 +226,7 @@ export const story: Story = {
         { kind: 'title', title: 'Chapter Five', subtitle: 'Room 1xx' },
         {
           kind: 'pointclick',
-          intro: 'Your roommate kept vanishing, and then was gone for good, so I more or less moved in. Have a look around. Everything in here is a story.',
+          intro: 'My roommate kept vanishing, and then was gone for good, so you more or less moved in. Have a look around. Everything in here is a story.',
           objects: [
             {
               id: 'beds',
@@ -272,8 +272,8 @@ export const story: Story = {
               emoji: '\u{1F6AA}',
               memory: [
                 'You got locked out once, standing in the hall, certain you were done for.',
-                'I slid a credit card down the frame and popped it in one try, like I did it for a living.',
-                'I did not do it for a living. I got very lucky. You looked at me like a magician.',
+                'I slid a credit card down the frame and thought I could pop it open, thinking I could impress you.',
+                'More attempts to impress you, more attempts to make you like me. You looked at me like a would-be magician.',
               ],
             },
             {
@@ -485,7 +485,7 @@ export const story: Story = {
           kind: 'narration',
           lines: [
             'A tiny ceremony in the woods at Worlds End State Park.',
-            'Just us and whatever family was close. My mom among them.',
+            'Just us and whatever family was close.',
             'Humble, and beautiful, and completely ours.',
           ],
         },
@@ -498,7 +498,7 @@ export const story: Story = {
         {
           kind: 'narration',
           lines: [
-            'This was the first time. A year later we did it all again, bigger, at the fire hall.',
+            'This was the first time. A year later we did it all again.',
             'So it has been twenty years since these woods, and nineteen since that second one.',
             'We have never once agreed on which one is the real anniversary. I have always counted from here.',
           ],
