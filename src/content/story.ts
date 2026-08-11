@@ -499,8 +499,8 @@ export const story: Story = {
           kind: 'narration',
           lines: [
             'This was the first time. A year later we did it all again, bigger, at the fire hall.',
-            'So it has been twenty-one years since these woods, and twenty since that second one.',
-            'We have never once agreed on which number is the real one. We just say twenty and call it even.',
+            'So it has been twenty years since these woods, and nineteen since that second one.',
+            'We have never once agreed on which one is the real anniversary. I have always counted from here.',
           ],
         },
       ],
