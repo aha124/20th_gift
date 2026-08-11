@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { BOOT_LINE, HER_SN } from '../content/story'
 import { useTypewriter } from '../engine/useTypewriter'
-import { playDialup, doorOpen, unlockAudio } from '../audio/sound'
+import { playDialup, signOn, unlockAudio, DIALUP_MS } from '../audio/sound'
+import { useFullscreen } from '../engine/useFullscreen'
 import './BootScreen.css'
 
 type Phase = 'off' | 'line' | 'power' | 'dialup' | 'signon'
@@ -14,6 +15,7 @@ interface Props {
 export default function BootScreen({ onComplete }: Props) {
   const [phase, setPhase] = useState<Phase>('off')
   const { shown, done, skip } = useTypewriter(phase === 'line' ? [BOOT_LINE] : [], 30)
+  const fullscreen = useFullscreen()
 
   function begin() {
     unlockAudio()
@@ -34,7 +36,7 @@ export default function BootScreen({ onComplete }: Props) {
       const t = setTimeout(() => {
         stop()
         setPhase('signon')
-      }, 6200)
+      }, DIALUP_MS)
       return () => {
         stop()
         clearTimeout(t)
@@ -48,6 +50,17 @@ export default function BootScreen({ onComplete }: Props) {
         <div className="boot__power">
           <span className="boot__power-ring" />
           <span className="tap-hint">tap to power on</span>
+          {fullscreen.supported && !fullscreen.isFull && (
+            <button
+              className="btn boot__fs"
+              onClick={(e) => {
+                e.stopPropagation()
+                fullscreen.toggle()
+              }}
+            >
+              ⛶ Play full screen
+            </button>
+          )}
         </div>
       </div>
     )
@@ -75,14 +88,15 @@ export default function BootScreen({ onComplete }: Props) {
 
   if (phase === 'dialup') {
     return (
-      <div className="boot">
+      <div className="boot" onClick={() => setPhase('signon')}>
         <div className="boot__modem fade-in">
           <div className="boot__modem-icon">📞</div>
           <div className="boot__modem-text">Connecting…</div>
           <div className="boot__modem-bar">
-            <span />
+            <span style={{ animationDuration: `${DIALUP_MS}ms` }} />
           </div>
           <div className="boot__modem-sub">Dialing 1-718-… • 56k</div>
+          <div className="tap-hint">tap to skip</div>
         </div>
       </div>
     )
@@ -107,7 +121,7 @@ export default function BootScreen({ onComplete }: Props) {
           <button
             className="btn btn--primary signon__go"
             onClick={() => {
-              doorOpen()
+              signOn()
               onComplete()
             }}
           >

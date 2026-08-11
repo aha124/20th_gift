@@ -1,9 +1,25 @@
-// Everything here is synthesized with the Web Audio API — no copyrighted
-// clips shipped. If you want the real dial-up recording, drop a
-// permissively-licensed file in src/audio/ and wire it into playDialup().
+// Sounds are synthesized with the Web Audio API, except where a real,
+// permissively-licensed recording exists in this folder — see clips.ts. The
+// dial-up handshake is a genuine CC0 recording; everything else falls back to
+// synthesis unless you drop a file in to override it.
+
+import { resolveClip } from './clips'
 
 let ctx: AudioContext | null = null
 let muted = false
+
+/** Play a real recording if that file exists. Returns null when it doesn't. */
+function playClip(name: string, volume = 0.7): HTMLAudioElement | null {
+  if (muted) return null
+  const src = resolveClip(name)
+  if (!src) return null
+  const a = new Audio(src)
+  a.volume = volume
+  void a.play().catch(() => {
+    /* autoplay blocked; the synthesized fallback already ran or will */
+  })
+  return a
+}
 
 function ac(): AudioContext {
   if (!ctx) {
@@ -82,20 +98,34 @@ function noiseBurst(start: number, dur: number, gain = 0.08) {
   src.stop(c.currentTime + start + dur)
 }
 
-/** AIM door opening — a rising two-note swing. */
+/** AIM door opening — a rising two-note swing (or dooropen.mp3 if present). */
 export function doorOpen() {
+  if (playClip('dooropen.mp3', 0.7)) return
   tone(523, 0, 0.12, { type: 'triangle', gain: 0.22 })
   tone(784, 0.09, 0.16, { type: 'triangle', gain: 0.2 })
 }
 
-/** AIM door closing — a falling pair. */
+/** AIM door closing — a falling pair (or doorclose.mp3 if present). */
 export function doorClose() {
+  if (playClip('doorclose.mp3', 0.7)) return
   tone(659, 0, 0.12, { type: 'triangle', gain: 0.2 })
   tone(392, 0.09, 0.18, { type: 'triangle', gain: 0.2 })
 }
 
-/** Incoming message ding. */
+/**
+ * Signing on to AIM. Uses signon.mp3 when you drop one in; otherwise a
+ * slightly grander version of the door swing.
+ */
+export function signOn() {
+  if (playClip('signon.mp3', 0.75)) return
+  tone(523, 0, 0.13, { type: 'triangle', gain: 0.22 })
+  tone(784, 0.1, 0.15, { type: 'triangle', gain: 0.21 })
+  tone(1046, 0.22, 0.3, { type: 'triangle', gain: 0.2 })
+}
+
+/** Incoming message ding (or receive.mp3 if present). */
 export function receiveDing() {
+  if (playClip('receive.mp3', 0.6)) return
   tone(880, 0, 0.09, { type: 'sine', gain: 0.18 })
   tone(1174, 0.06, 0.12, { type: 'sine', gain: 0.16 })
 }
@@ -200,12 +230,39 @@ export function victory() {
   tone(1046, 0.36, 0.28, { type: 'triangle', gain: 0.18 })
 }
 
+/** How long the real recording runs, so the boot screen can match it. */
+export const DIALUP_MS = resolveClip('dialup.mp3') ? 9800 : 6200
+
 /**
- * A synthesized evocation of a 56k handshake: the dial tones, the carrier
- * warble, and the wash of static that everyone born before 1995 can hear in
- * their memory. About 5.5 seconds. Returns a stop() you can call to cut it.
+ * The 56k handshake. Plays the genuine CC0 recording in src/audio/dialup.mp3
+ * — dial tone, real touch-tones dialing out, the pause, the answer tone, the
+ * screech — and falls back to the synthesized evocation if the file is gone
+ * or the browser refuses to play it. Returns a stop() you can call to cut it.
  */
 export function playDialup(): () => void {
+  if (muted) return () => {}
+  const src = resolveClip('dialup.mp3')
+  if (src) {
+    const a = new Audio(src)
+    a.volume = 0.65
+    let stopped = false
+    let fallbackStop: (() => void) | null = null
+    void a.play().catch(() => {
+      // Playback refused (rare after unlockAudio) — use the synth instead.
+      if (!stopped) fallbackStop = synthDialup()
+    })
+    return () => {
+      stopped = true
+      a.pause()
+      a.currentTime = 0
+      fallbackStop?.()
+    }
+  }
+  return synthDialup()
+}
+
+/** The hand-built evocation, kept as a fallback. About 5.5 seconds. */
+function synthDialup(): () => void {
   if (muted) return () => {}
   // DTMF-ish dialing
   const digits = [0.0, 0.18, 0.36, 0.54, 0.72, 0.9, 1.08]

@@ -4,6 +4,7 @@ import type { Beat } from './types'
 import { isMuted, setMuted } from '../audio/sound'
 import { SAVE_KEY, resetAll } from './storage'
 import { resolvePhoto } from '../assets/photos'
+import { useFullscreen } from './useFullscreen'
 
 import TitleCard from '../components/TitleCard'
 import NarrationCard from '../components/NarrationCard'
@@ -54,6 +55,7 @@ export default function StoryMachine() {
   const [bonusUnlocked, setBonusUnlocked] = useState(initial?.bonusUnlocked ?? false)
   const [muted, setMutedState] = useState(isMuted())
   const [confirmReset, setConfirmReset] = useState(false)
+  const fullscreen = useFullscreen()
 
   const chapter = playingBonus ? bonusChapter! : mainChapters[chapterIdx]
   const beat: Beat | undefined = chapter?.beats[beatIdx]
@@ -130,6 +132,15 @@ export default function StoryMachine() {
         <button className="sm__icon" onClick={toggleMute} title={muted ? 'Unmute' : 'Mute'}>
           {muted ? '🔇' : '🔊'}
         </button>
+        {fullscreen.supported && (
+          <button
+            className="sm__icon"
+            onClick={fullscreen.toggle}
+            title={fullscreen.isFull ? 'Exit full screen' : 'Full screen'}
+          >
+            {fullscreen.isFull ? '⤡' : '⛶'}
+          </button>
+        )}
         <button className="sm__icon" onClick={() => setConfirmReset(true)} title="Start over">
           ↺
         </button>

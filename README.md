@@ -47,9 +47,18 @@ See `src/assets/README.md`. Until then, placeholders keep the story playable.
 
 ## Sound
 
-All synthesized with the Web Audio API — no copyrighted clips. See
-`src/audio/README.md` if you want to swap in a real dial-up recording, and for
-the note on why the GNR/Guster tracks and lyrics are deliberately left out.
+The dial-up handshake is a **genuine CC0 recording** (dial tone, real
+touch-tones, the screech); everything else is synthesized with the Web Audio
+API. Dropping an audio file into `src/audio/` automatically overrides the
+synthesized version of that sound — handy if you have the real AIM clips. See
+`src/audio/README.md` for the filename table, the license, and the note on why
+the GNR/Guster tracks and lyrics are deliberately left out.
+
+## Full screen
+
+There's a ⛶ button in the top bar during play, and a **Play full screen**
+button on the very first power-on screen — best way to hand her the tablet.
+(It hides itself on browsers that can't do it, notably iPhone Safari.)
 
 ## Architecture
 
