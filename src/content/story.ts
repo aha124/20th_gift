@@ -60,7 +60,7 @@ export const story: Story = {
             'You get to Wagner late despite trying your best to stall.',
             'Mark walks you into some all-purpose room where a man who calls himself a mentalist is halfway through convincing a row of freshmen that they are chickens.',
             'And sitting right behind you is this other guy, dressed head to toe in black, because he had just come from an audition and apparently owns no other colors.',
-            'That's  me.',
+            'That’s me.',
           ],
         },
         {
